@@ -1,0 +1,39 @@
+{
+  "environment": {
+    "id": "uat"
+  },
+  "configValues": [
+    {
+      "key":   "browser.settings.location",
+      "value": "target/test-classes/config/browserconf/"
+    },
+    {
+      "key":   "web.driver.location",
+      "value": "target/test-classes/webdriver/${currentos}/"
+    },
+    {
+      "key":   "base.url",
+      "value": "http://localhost:3000/"
+    }
+  ],
+  "restServiceList": [{
+    "serverPort": "8080",
+    "baseHost": "https://sampleurl",
+    "basePath": "/basepath/",
+    "uniqueKey": "uniquekey"
+  }
+  ],
+  "dataBaseList": [{
+    "servername": "sampledbname",
+    "serverport": "sampleport",
+    "databasename": "sampledatabasename",
+    "uniquekey": "uniquekey",
+    "active": true,
+    "user": {
+      "username": "sampleusername",
+      "password": "samplepassword",
+      "uniquekey": ""
+    }
+  }
+  ]
+}

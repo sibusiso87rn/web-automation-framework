@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Regression" thread-count="1" parallel="tests">
+    <test name="Chrome">
+        <parameter name="environment"             value="uat"/>
+        <parameter name="browser"                 value="chrome"/>
+        <parameter name="browser.version"         value="86.0.4240.22"/>
+        <parameter name="browser.name"            value="chromedriver"/>
+        <parameter name="browser.run.environment" value="local"/>
+        <classes>
+            <class name="starter.ExecutionEngine"/>
+        </classes>
+    </test>
+</suite>
+
+

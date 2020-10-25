@@ -1,0 +1,27 @@
+{
+  "environment": {
+    "id": "sit"
+  },
+  "configValues": [
+  ],
+  "restServiceList": [{
+    "serverPort": "8080",
+    "baseHost": "https://sampleurl",
+    "basePath": "/basepath/",
+    "uniqueKey": "uniquekey"
+  }
+  ],
+  "dataBaseList": [{
+    "servername": "sampledbname",
+    "serverport": "sampleport",
+    "databasename": "sampledatabasename",
+    "uniquekey": "uniquekey",
+    "active": true,
+    "user": {
+      "username": "sampleusername",
+      "password": "samplepassword",
+      "uniquekey": ""
+    }
+  }
+  ]
+}
