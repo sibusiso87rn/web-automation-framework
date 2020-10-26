@@ -1,11 +1,11 @@
-package starter.core.tests.actions;
+package starter.tests.actions;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import starter.core.util.actions.UserActions;
-import starter.core.tests.pages.Page_Landing;
+import starter.tests.pages.Page_Landing;
 
 @Component
 @Lazy

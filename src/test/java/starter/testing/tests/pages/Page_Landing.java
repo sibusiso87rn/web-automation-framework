@@ -1,4 +1,4 @@
-package starter.core.tests.pages;
+package starter.tests.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

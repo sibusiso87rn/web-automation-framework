@@ -9,7 +9,7 @@
 </appender>
 
 <logger name="root" level="DEBUG"/>
-<logger name="starter.org.testing.*" level="INFO"/>
+<logger name="starter.*" level="INFO"/>
 <root level="INFO">
     <appender-ref ref="STDOUT"/>
 </root>

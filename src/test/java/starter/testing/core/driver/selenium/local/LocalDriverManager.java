@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import starter.core.interfaces.ILocalWebDriverSetup;
-import starter.core.util.ApplicationContext;
+import starter.core.util.ApplicationTestContext;
 import starter.core.util.environment.EnvironmentConfig;
 
 public enum LocalDriverManager implements ILocalWebDriverSetup {
@@ -15,10 +15,10 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
     CHROME {
         public DesiredCapabilities getDesiredCapabilities(){
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("os", ApplicationContext.getTestConfiguration().getProperties().getProperty("os",""));
-            capabilities.setCapability("os_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("os.version",""));
+            capabilities.setCapability("os", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("os",""));
+            capabilities.setCapability("os_version", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("os.version",""));
             capabilities.setCapability("browser", "chrome");
-            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.version",""));
+            capabilities.setCapability("browser_version", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("browser.version",""));
             return capabilities;
         }
 
@@ -31,16 +31,16 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
         }
 
         public String getDriverLocation() {
-            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.name");
+            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ ApplicationTestContext.getTestConfiguration().getProperties().getProperty("browser.name");
         }
     },
     FIREFOX {
         public DesiredCapabilities getDesiredCapabilities(){
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("os", ApplicationContext.getTestConfiguration().getProperties().getProperty("os",""));
-            capabilities.setCapability("os_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("os_version",""));
+            capabilities.setCapability("os", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("os",""));
+            capabilities.setCapability("os_version", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("os_version",""));
             capabilities.setCapability("browser", "chrome");
-            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser_version",""));
+            capabilities.setCapability("browser_version", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("browser_version",""));
             return capabilities;
         }
 
@@ -53,16 +53,16 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
         }
 
         public String getDriverLocation() {
-            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.name");
+            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ ApplicationTestContext.getTestConfiguration().getProperties().getProperty("browser.name");
         }
     },
     IE {
         public DesiredCapabilities getDesiredCapabilities(){
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("os", ApplicationContext.getTestConfiguration().getProperties().getProperty("os",""));
-            capabilities.setCapability("os_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("os_version",""));
+            capabilities.setCapability("os", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("os",""));
+            capabilities.setCapability("os_version", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("os_version",""));
             capabilities.setCapability("browser", "chrome");
-            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser_version",""));
+            capabilities.setCapability("browser_version", ApplicationTestContext.getTestConfiguration().getProperties().getProperty("browser_version",""));
             return capabilities;
         }
 
@@ -72,7 +72,7 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
         }
 
         public String getDriverLocation() {
-            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.name");
+            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ ApplicationTestContext.getTestConfiguration().getProperties().getProperty("browser.name");
         }
     }
 }

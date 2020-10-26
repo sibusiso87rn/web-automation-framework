@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import starter.core.util.ApplicationContext;
+import starter.core.util.ApplicationTestContext;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -30,33 +30,33 @@ public class UserActions {
     public static int OBJECT_WAIT_TIME = Integer.parseInt(System.getProperty("object.wait.time","30"));
 
     public static void click(WebElement element) {
-        click(element, ApplicationContext.getWebDriver());
+        click(element, ApplicationTestContext.getWebDriver());
     }
 
     public static void clear(WebElement element) {
-        clear(element, ApplicationContext.getWebDriver());
+        clear(element, ApplicationTestContext.getWebDriver());
     }
 
     public static void isElementSelected(WebElement element) {
         logger.info("Checking if the element is selected");
-        checkSelected(element, true, ApplicationContext.getWebDriver());
+        checkSelected(element, true, ApplicationTestContext.getWebDriver());
     }
 
     public static void isElementUnSelected(WebElement element) {
         logger.info("Checking if the element is un selected");
-        checkSelected(element, false, ApplicationContext.getWebDriver());
+        checkSelected(element, false, ApplicationTestContext.getWebDriver());
     }
 
     public static void isElementEnabled(WebElement element){
-        isElementEnabled(element, ApplicationContext.getWebDriver());
+        isElementEnabled(element, ApplicationTestContext.getWebDriver());
     }
 
     public static void isElementDisabled(WebElement element){
-        isElementDisabled(element, ApplicationContext.getWebDriver());
+        isElementDisabled(element, ApplicationTestContext.getWebDriver());
     }
 
     public static void isElementPresent(WebElement element) {
-        isElementPresent(element, ApplicationContext.getWebDriver());
+        isElementPresent(element, ApplicationTestContext.getWebDriver());
     }
 
     public static void isElementPresent(WebElement element, WebDriver driver) {
@@ -109,16 +109,16 @@ public class UserActions {
     }
 
     public static void waitForElementToBeVisible(WebElement element) {
-        waitForElementToBeVisible(element, ApplicationContext.getWebDriver());
+        waitForElementToBeVisible(element, ApplicationTestContext.getWebDriver());
     }
 
     public static void waitForElementToInVisible(WebElement element){
-        waitForElementToInVisible(element, ApplicationContext.getWebDriver());
+        waitForElementToInVisible(element, ApplicationTestContext.getWebDriver());
     }
 
     public static void input(WebElement element, String data) {
         logger.info("Ready to input data : " + data);
-        input(element, ApplicationContext.getWebDriver(),data);
+        input(element, ApplicationTestContext.getWebDriver(),data);
         logger.info("Input data complete : success");
 
     }
@@ -274,7 +274,7 @@ public class UserActions {
     }
 
     private static WebDriver getDriver(){
-        return ApplicationContext.getWebDriver();
+        return ApplicationTestContext.getWebDriver();
     }
 
     public static void elementTextMatchesPattern(WebElement element, Pattern expectedPattern){

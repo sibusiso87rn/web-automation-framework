@@ -26,7 +26,6 @@ public class TestBean {
     @Autowired
     private TestConfigurationProperty testConfigurationProperty;
 
-
     //Set the driver before the test starts
     @Bean
     public TestBean createTestBean(){

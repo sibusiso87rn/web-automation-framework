@@ -1,4 +1,4 @@
-package starter.core.util;
+package starter.testing.core.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,19 +10,19 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import starter.core.bean.TestBean;
-import starter.core.util.environment.TestConfigurationProperty;
+import starter.testing.core.bean.TestBean;
+import starter.testing.core.util.environment.TestConfigurationProperty;
 
 /**
  * Created by Sibusiso Radebe on 2020/02/20.
  */
 
 @Component
-public class ApplicationContext implements ApplicationContextAware {
+public class ApplicationTestContext implements ApplicationContextAware {
 
     private static org.springframework.context.ApplicationContext CONTEXT;
 
-    private static final Logger logger                = LogManager.getLogger(ApplicationContext.class);
+    private static final Logger logger                = LogManager.getLogger(ApplicationTestContext.class);
     private static final String TEST_DRIVER_BEAN_NAME = "testBean";
 
     public void setApplicationContext(org.springframework.context.ApplicationContext context) throws BeansException {
@@ -68,19 +68,19 @@ public class ApplicationContext implements ApplicationContextAware {
 
     //Gets the test driver singleton from the context
     public static TestBean getTestBean(){
-        return  (TestBean) ApplicationContext.getComponent(TestBean.class);
+        return  (TestBean) ApplicationTestContext.getComponent(TestBean.class);
     }
 
     //Gets the appium driver from Spring Context
     public static WebDriver getWebDriver(){
         logger.info("Getting the appium driver from application context");
-        return  ApplicationContext.getTestBean().getWebDriver();
+        return  ApplicationTestContext.getTestBean().getWebDriver();
     }
 
     //Gets the test configuration for the session
     public static TestConfigurationProperty getTestConfiguration(){
         logger.info("Getting the test configuration application context");
-        return (TestConfigurationProperty) ApplicationContext.getComponent(TestConfigurationProperty.class);
+        return (TestConfigurationProperty) ApplicationTestContext.getComponent(TestConfigurationProperty.class);
     }
 
     //Gets the page from the Page Object from Spring Context
