@@ -1,4 +1,4 @@
-package starter.core.driver.selenium;
+package starter.testing.core.driver.selenium;
 
 public enum BrowserRunEnvironment {
         LOCAL, GRID;

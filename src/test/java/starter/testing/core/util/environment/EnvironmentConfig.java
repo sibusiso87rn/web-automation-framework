@@ -1,16 +1,16 @@
-package starter.core.util.environment;
+package starter.testing.core.util.environment;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import starter.core.interfaces.IEnvironmentProperties;
-import starter.core.util.environment.config.Config;
-import starter.core.util.environment.config.ConfigValue;
-import starter.core.util.environment.config.DataBaseConfig;
-import starter.core.util.environment.config.RestServiceConfig;
-import starter.core.util.file.FilesUtil;
+import starter.testing.core.interfaces.IEnvironmentProperties;
+import starter.testing.core.util.environment.config.Config;
+import starter.testing.core.util.environment.config.ConfigValue;
+import starter.testing.core.util.environment.config.DataBaseConfig;
+import starter.testing.core.util.environment.config.RestServiceConfig;
+import starter.testing.core.util.file.FilesUtil;
 
 
 public class EnvironmentConfig {

@@ -1,8 +1,8 @@
-package starter.core.util;
+package starter.testing.core.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import starter.core.util.environment.config.DataBaseConfig;
+import starter.testing.core.util.environment.config.DataBaseConfig;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

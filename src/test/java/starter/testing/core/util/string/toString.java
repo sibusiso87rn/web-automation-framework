@@ -1,4 +1,4 @@
-package starter.core.util.string;
+package starter.testing.core.util.string;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

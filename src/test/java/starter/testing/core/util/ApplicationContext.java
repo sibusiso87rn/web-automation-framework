@@ -18,11 +18,11 @@ import starter.testing.core.util.environment.TestConfigurationProperty;
  */
 
 @Component
-public class ApplicationTestContext implements ApplicationContextAware {
+public class ApplicationContext implements ApplicationContextAware {
 
     private static org.springframework.context.ApplicationContext CONTEXT;
 
-    private static final Logger logger                = LogManager.getLogger(ApplicationTestContext.class);
+    private static final Logger logger                = LogManager.getLogger(ApplicationContext.class);
     private static final String TEST_DRIVER_BEAN_NAME = "testBean";
 
     public void setApplicationContext(org.springframework.context.ApplicationContext context) throws BeansException {
@@ -68,19 +68,19 @@ public class ApplicationTestContext implements ApplicationContextAware {
 
     //Gets the test driver singleton from the context
     public static TestBean getTestBean(){
-        return  (TestBean) ApplicationTestContext.getComponent(TestBean.class);
+        return  (TestBean) ApplicationContext.getComponent(TestBean.class);
     }
 
     //Gets the appium driver from Spring Context
     public static WebDriver getWebDriver(){
         logger.info("Getting the appium driver from application context");
-        return  ApplicationTestContext.getTestBean().getWebDriver();
+        return  ApplicationContext.getTestBean().getWebDriver();
     }
 
     //Gets the test configuration for the session
     public static TestConfigurationProperty getTestConfiguration(){
         logger.info("Getting the test configuration application context");
-        return (TestConfigurationProperty) ApplicationTestContext.getComponent(TestConfigurationProperty.class);
+        return (TestConfigurationProperty) ApplicationContext.getComponent(TestConfigurationProperty.class);
     }
 
     //Gets the page from the Page Object from Spring Context

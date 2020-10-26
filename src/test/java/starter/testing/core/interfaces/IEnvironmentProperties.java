@@ -1,4 +1,4 @@
-package starter.core.interfaces;
+package starter.testing.core.interfaces;
 
 import org.aeonbits.owner.Config;
 

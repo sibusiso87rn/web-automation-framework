@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/context/spring-context-3.2.xsd
 	">
 
-    <context:component-scan base-package="starter.core" />
-    <bean id="springApplicationContext" class="starter.core.util.ApplicationContext"/>
-    <bean id="testBean"    class="starter.core.bean.TestBean"/>
+    <context:component-scan base-package="starter.testing" />
+    <bean id="springApplicationContext" class="starter.testing.core.util.ApplicationContext"/>
+    <bean id="testBean"    class="starter.testing.core.bean.TestBean"/>
 </beans>

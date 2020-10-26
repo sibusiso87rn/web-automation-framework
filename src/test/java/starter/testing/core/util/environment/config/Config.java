@@ -1,6 +1,6 @@
-package starter.core.util.environment.config;
+package starter.testing.core.util.environment.config;
 
-import starter.core.util.string.toString;
+import starter.testing.core.util.string.toString;
 
 import java.io.Serializable;
 import java.util.ArrayList;

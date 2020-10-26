@@ -1,7 +1,7 @@
-package starter.core.util.environment.config;
+package starter.testing.core.util.environment.config;
 
 
-import starter.core.util.environment.entity.Entity;
+import starter.testing.core.util.environment.entity.Entity;
 
 public class DataBaseConfig extends Entity {
 

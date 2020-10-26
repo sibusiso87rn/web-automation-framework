@@ -1,4 +1,4 @@
-package starter;
+package starter.testing;
 
 import io.cucumber.core.api.Scenario;
 import io.cucumber.java.After;
@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import starter.core.util.ApplicationTestContext;
+import starter.testing.core.util.ApplicationContext;
 
 public class Hooks {
 
@@ -55,7 +55,7 @@ public class Hooks {
     private void takeScreenshot(Scenario scenario) {
         logger.info("Taking screenshot...");
             try {
-                byte[] screenShot = ((TakesScreenshot) ApplicationTestContext.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+                byte[] screenShot = ((TakesScreenshot) ApplicationContext.getWebDriver()).getScreenshotAs(OutputType.BYTES);
                 scenario.embed(screenShot, "image/png");
             } catch (Exception e) {
                 logger.error("Failed to take screenshot , ", e.getMessage());

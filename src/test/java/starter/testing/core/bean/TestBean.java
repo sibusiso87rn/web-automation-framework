@@ -1,4 +1,4 @@
-package starter.core.bean;
+package starter.testing.core.bean;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import starter.core.driver.selenium.WebDriverFactory;
-import starter.core.util.environment.TestConfigurationProperty;
+import starter.testing.core.driver.selenium.WebDriverFactory;
+import starter.testing.core.util.environment.TestConfigurationProperty;
 
 import java.util.Properties;
 

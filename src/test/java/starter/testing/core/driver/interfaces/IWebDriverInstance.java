@@ -1,4 +1,4 @@
-package starter.core.driver.interfaces;
+package starter.testing.core.driver.interfaces;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;

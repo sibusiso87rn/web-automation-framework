@@ -1,4 +1,4 @@
-package starter;
+package starter.testing;
 
 import io.cucumber.testng.CucumberFeatureWrapper;
 import io.cucumber.testng.CucumberOptions;
@@ -9,11 +9,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.*;
-import starter.core.util.ApplicationTestContext;
-import starter.core.util.CucumberReport;
-import starter.core.util.environment.EnvironmentConfig;
+import starter.testing.core.util.ApplicationContext;
+import starter.testing.core.util.CucumberReport;
+import starter.testing.core.util.environment.EnvironmentConfig;
 import java.util.concurrent.TimeUnit;
-import starter.tests.TestConstants;
+import starter.testing.tests.TestConstants;
 
 /**
  * Created by Sibusiso Radebe on 2020/02/20.
@@ -48,19 +48,18 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         EnvironmentConfig.getEnvironmentConfigInstance();
 
         //Initialize driver properties
-        ApplicationTestContext.getTestConfiguration().createTestConfigProperties(browser,browserVersion,browserLocation,browserName);
+        ApplicationContext.getTestConfiguration().createTestConfigProperties(browser,browserVersion,browserLocation,browserName);
 
         //Read device details from the testcase on testng xml
         System.setProperty("configs.set","true");
 
         logger.info("Creating driver for scenario");
-        ApplicationTestContext.getTestBean().createDriver();
+        ApplicationContext.getTestBean().createDriver();
 
         baseUrl = EnvironmentConfig.getEnvironmentConfigInstance().getConfigValue(TestConstants.BASE_URL);
 
         //Launch
-        ApplicationTestContext.getTestBean().getWebDriver().get(baseUrl);
-        ApplicationTestContext.getTestBean().getWebDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        ApplicationContext.getTestBean().getWebDriver().get(baseUrl);
 
         logger.info("Finished setting the TestNG properties.");
     }
@@ -88,7 +87,7 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         new CucumberReport().createReport();
 
         //Quit appium driver
-        ApplicationTestContext.getWebDriver().quit();
+        ApplicationContext.getWebDriver().quit();
     }
 
 

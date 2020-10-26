@@ -1,8 +1,8 @@
-package starter.core.driver.selenium.remote;
+package starter.testing.core.driver.selenium.remote;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import starter.core.interfaces.IRemoteWebDriverSetup;
+import starter.testing.core.interfaces.IRemoteWebDriverSetup;
 
 import java.net.URL;
 import java.util.Properties;

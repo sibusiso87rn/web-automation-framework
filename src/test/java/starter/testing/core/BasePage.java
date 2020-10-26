@@ -1,10 +1,10 @@
-package starter.core;
+package starter.testing.core;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import starter.core.util.ApplicationTestContext;
+import starter.testing.core.util.ApplicationContext;
 
 public abstract class BasePage {
 
@@ -12,7 +12,7 @@ public abstract class BasePage {
     protected static final Logger logger = LogManager.getLogger(BasePage.class);
 
     public BasePage(){
-        driver = ApplicationTestContext.getWebDriver();
+        driver = ApplicationContext.getWebDriver();
         logger.info("Creating page object ["+this.getClass().getSimpleName()+"]");
         PageFactory.initElements(driver,this);
     }

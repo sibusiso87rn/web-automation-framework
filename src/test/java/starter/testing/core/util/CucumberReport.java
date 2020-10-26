@@ -1,4 +1,4 @@
-package starter.core.util;
+package starter.testing.core.util;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
@@ -7,8 +7,8 @@ import net.masterthought.cucumber.Reportable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import starter.core.util.environment.EnvironmentConfig;
-import starter.core.util.file.FilesUtil;
+import starter.testing.core.util.environment.EnvironmentConfig;
+import starter.testing.core.util.file.FilesUtil;
 
 import java.io.File;
 import java.net.InetAddress;

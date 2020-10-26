@@ -1,11 +1,11 @@
-package starter.core.driver.selenium;
+package starter.testing.core.driver.selenium;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import starter.core.driver.selenium.local.LocalDriverManager;
-import starter.core.driver.selenium.remote.RemoteWebDriverManager;
+import starter.testing.core.driver.selenium.local.LocalDriverManager;
+import starter.testing.core.driver.selenium.remote.RemoteWebDriverManager;
 
 import java.util.Properties;
 

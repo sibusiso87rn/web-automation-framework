@@ -1,4 +1,4 @@
-package starter.core.util.actions;
+package starter.testing.core.util.actions;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -6,14 +6,20 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import starter.core.util.ApplicationTestContext;
+import starter.testing.core.util.ApplicationContext;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -30,47 +36,37 @@ public class UserActions {
     public static int OBJECT_WAIT_TIME = Integer.parseInt(System.getProperty("object.wait.time","30"));
 
     public static void click(WebElement element) {
-        click(element, ApplicationTestContext.getWebDriver());
+        click(element, ApplicationContext.getWebDriver());
     }
 
     public static void clear(WebElement element) {
-        clear(element, ApplicationTestContext.getWebDriver());
+        clear(element, ApplicationContext.getWebDriver());
     }
 
     public static void isElementSelected(WebElement element) {
         logger.info("Checking if the element is selected");
-        checkSelected(element, true, ApplicationTestContext.getWebDriver());
+        checkSelected(element, true, ApplicationContext.getWebDriver());
     }
 
     public static void isElementUnSelected(WebElement element) {
         logger.info("Checking if the element is un selected");
-        checkSelected(element, false, ApplicationTestContext.getWebDriver());
+        checkSelected(element, false, ApplicationContext.getWebDriver());
     }
 
     public static void isElementEnabled(WebElement element){
-        isElementEnabled(element, ApplicationTestContext.getWebDriver());
+        isElementEnabled(element, ApplicationContext.getWebDriver());
     }
 
     public static void isElementDisabled(WebElement element){
-        isElementDisabled(element, ApplicationTestContext.getWebDriver());
+        isElementDisabled(element, ApplicationContext.getWebDriver());
     }
 
     public static void isElementPresent(WebElement element) {
-        isElementPresent(element, ApplicationTestContext.getWebDriver());
+        isElementPresent(element, ApplicationContext.getWebDriver());
     }
 
     public static void isElementPresent(WebElement element, WebDriver driver) {
-        try {
-            logger.info("Checking if the element is visible...the wait time is " + OBJECT_WAIT_TIME + " seconds");
-            WebDriverWait webDriverWait = new WebDriverWait(driver, OBJECT_WAIT_TIME);
-            webDriverWait.until(ExpectedConditions.visibilityOf(element));
-            logger.info("Checking if the element is visible success, element found " + element.toString());
-            assertThat(element.isDisplayed(), is(equalTo(true)));
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("Element not present : " + e.getMessage());
-            assertThat(false, is(equalTo(true)));
-        }
+        waitForElementToBeClickable(element,driver);
     }
 
     public static void isElementEnabled(WebElement element, WebDriver driver) {
@@ -80,7 +76,6 @@ public class UserActions {
             logger.info("Element is enabled " + element.toString());
         } catch (Exception e) {
             logger.error("Element is not enabled " + element.toString());
-            e.printStackTrace();
             assertThat(false, is(equalTo(true)));
         }
     }
@@ -98,27 +93,26 @@ public class UserActions {
     }
 
     public static void isElementInVisible(WebElement element, String failureMessage){
-
-            try{
-                //Check if the element is displayed
-                assertThat(failureMessage,element.isDisplayed(), is(equalTo(false)));
-            }catch (NoSuchElementException e){
-                //Catch the exception and if the element is not found, meaning its not there
-                assertThat(true, is(equalTo(true)));
-            }
+        try{
+            //Check if the element is displayed
+            assertThat(failureMessage,element.isDisplayed(), is(equalTo(false)));
+        }catch (NoSuchElementException e){
+            //Catch the exception and if the element is not found, meaning its not there
+            assertThat(true, is(equalTo(true)));
+        }
     }
 
     public static void waitForElementToBeVisible(WebElement element) {
-        waitForElementToBeVisible(element, ApplicationTestContext.getWebDriver());
+        waitForElementToBeVisible(element, ApplicationContext.getWebDriver());
     }
 
     public static void waitForElementToInVisible(WebElement element){
-        waitForElementToInVisible(element, ApplicationTestContext.getWebDriver());
+        waitForElementToInVisible(element, ApplicationContext.getWebDriver());
     }
 
     public static void input(WebElement element, String data) {
         logger.info("Ready to input data : " + data);
-        input(element, ApplicationTestContext.getWebDriver(),data);
+        input(element, ApplicationContext.getWebDriver(),data);
         logger.info("Input data complete : success");
 
     }
@@ -136,10 +130,12 @@ public class UserActions {
 
     public static void waitForElementToBeVisible(WebElement element, WebDriver driver) {
         try {
-            WebDriverWait webDriverWait = new WebDriverWait(driver, OBJECT_WAIT_TIME);
-            webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+            Wait wait = new FluentWait<>(driver)
+                    .withTimeout(Duration.ofSeconds(OBJECT_WAIT_TIME))
+                    .pollingEvery(Duration.ofSeconds(1))
+                    .ignoring(NoSuchElementException.class);
+            wait.until((Function) ExpectedConditions.visibilityOfAllElements(element));
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("Failed to locate element after 30 seconds :" + e.getMessage());
             assertThat(false, is(equalTo(true)));        }
     }
@@ -148,8 +144,11 @@ public class UserActions {
         try {
 
             //First check if the element is present for a limited amount of time OBJECT_WAIT_TIME
-            WebDriverWait webDriverWait = new WebDriverWait(driver, OBJECT_WAIT_TIME);
-            webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+            Wait wait = new FluentWait<>(driver)
+                    .withTimeout(Duration.ofSeconds(OBJECT_WAIT_TIME))
+                    .pollingEvery(Duration.ofSeconds(1))
+                    .ignoring(NoSuchElementException.class);
+            wait.until((Function) ExpectedConditions.invisibilityOf(element));
 
             //If the element is still visible after OBJECT_WAIT_TIME then we assume it did not disappear
             logger.warn("Waited for "+OBJECT_WAIT_TIME+" seconds and the element is present");
@@ -159,7 +158,6 @@ public class UserActions {
         } catch (Exception e) {
             //If the element is no present
             logger.warn(e.getMessage());
-
             assertThat(false, is(equalTo(false)));
         }
     }
@@ -167,9 +165,11 @@ public class UserActions {
     public static void waitForElementToBeClickable(WebElement element, WebDriver driver){
         try {
             logger.info("Checking if the element is clickable...the wait time is " + OBJECT_WAIT_TIME + " seconds");
-            WebDriverWait webDriverWait = new WebDriverWait(driver, OBJECT_WAIT_TIME);
-            webDriverWait.until(ExpectedConditions.visibilityOf(element));
-            webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
+            Wait wait = new FluentWait<>(driver)
+                    .withTimeout(Duration.ofSeconds(OBJECT_WAIT_TIME))
+                    .pollingEvery(Duration.ofSeconds(1))
+                    .ignoring(NoSuchElementException.class);
+            wait.until((Function) ExpectedConditions.elementToBeClickable(element));
             logger.info("Checking if the element is clickable successful, element found " + element.toString());
         }catch (Exception e) {
             e.printStackTrace();
@@ -232,20 +232,17 @@ public class UserActions {
     public static void addTextToElements(List<WebElement> elementList,String content){
         StringBuffer elementText = new StringBuffer();
         logger.info("Adding string text to elements, list size is " + elementList.size() + ", the string contents are " + content);
-
         for(int i = 0; i < elementList.size(); i++){
             String data = Character.toString(content.charAt(i));
             elementList.get(i).click();
             elementList.get(i).sendKeys(data);
             elementText.append(data);
         }
-
         logger.info("Added text " + elementText );
     }
 
     public static StringBuffer getTextFromElement(WebElement element){
         waitForElementToBeVisible(element);
-
         logger.info("Getting text from element " + element.getText());
         return new StringBuffer().append(element.getText());
     }
@@ -268,13 +265,13 @@ public class UserActions {
                 waitForElementToBeVisible(element);
                 break;
             } catch (Exception e) {
-                getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+                getDriver().manage().timeouts().implicitlyWait(1, SECONDS);
             }
         }
     }
 
     private static WebDriver getDriver(){
-        return ApplicationTestContext.getWebDriver();
+        return ApplicationContext.getWebDriver();
     }
 
     public static void elementTextMatchesPattern(WebElement element, Pattern expectedPattern){

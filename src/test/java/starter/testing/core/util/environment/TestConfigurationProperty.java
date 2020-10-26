@@ -1,11 +1,11 @@
-package starter.core.util.environment;
+package starter.testing.core.util.environment;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import starter.core.CoreConstants;
-import starter.core.util.file.PropertiesUtil;
+import starter.testing.core.CoreConstants;
+import starter.testing.core.util.file.PropertiesUtil;
 
 import java.util.Properties;
 
