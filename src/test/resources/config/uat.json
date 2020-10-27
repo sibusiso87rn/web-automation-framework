@@ -8,12 +8,21 @@
       "value": "target/test-classes/config/browserconf/"
     },
     {
+      "key":   "test.configuration.location",
+      "value": "target/test-classes/config/test/"
+    },
+    {
       "key":   "web.driver.location",
       "value": "target/test-classes/webdriver/${currentos}/"
     },
     {
       "key":   "base.url",
       "value": "http://localhost:3000/"
+    }
+    ,
+    {
+      "key":   "grid.settings.name",
+      "value": "grid.properties"
     }
   ],
   "restServiceList": [{

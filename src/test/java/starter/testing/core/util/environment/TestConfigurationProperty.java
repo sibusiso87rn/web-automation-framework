@@ -20,13 +20,13 @@ public class TestConfigurationProperty {
         return driverProperties.get();
     }
 
-    public void createTestConfigProperties(String browser,String browserVersion,String browserLocation,String browserName){
+    public void createTestConfigProperties(String testConfiguration){
         //Read properties
-        driverProperties = ThreadLocal.withInitial(() -> PropertiesUtil.getProperties(EnvironmentConfig.getConfigValue(CoreConstants.BROWSER_CONF_KEY)+"remote.properties"));
-        driverProperties.get().setProperty("browser",browser);
-        driverProperties.get().setProperty("browser.version",browserVersion);
-        driverProperties.get().setProperty("browser.run.environment",browserLocation);
-        driverProperties.get().setProperty("browser.name",browserName);
+        String gridPropertiesLocation = EnvironmentConfig.getConfigValue(CoreConstants.BROWSER_CONF_KEY)+EnvironmentConfig.getConfigValue(CoreConstants.GRID_SETTINGS_CONF_KEY);
+        String testPropertiesLocation = EnvironmentConfig.getConfigValue(CoreConstants.TEST_SETTINGS_CONF_KEY)+testConfiguration;
+        logger.info("Adding grid properties from location {} ",gridPropertiesLocation);
+        logger.info("Adding testing configuration from location {} ",testPropertiesLocation);
+        driverProperties = ThreadLocal.withInitial(() -> PropertiesUtil.mergeProperties(PropertiesUtil.getProperties(gridPropertiesLocation),PropertiesUtil.getProperties(testPropertiesLocation)));
         PropertiesUtil.printProperties(driverProperties.get());
     }
 

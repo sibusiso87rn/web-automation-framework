@@ -2,7 +2,9 @@ package starter.testing.core;
 
 public class CoreConstants {
     public static final String BROWSER_CONF_KEY = "browser.settings.location";
-
+    public static final String GRID_SETTINGS_CONF_KEY = "grid.settings.name";
+    public static final String TEST_SETTINGS_CONF_KEY = "test.configuration.location";
+            ;
     //Waits
     public static final int SHORT_WAIT = 10;
     public static final int LONG_WAIT  = 30;

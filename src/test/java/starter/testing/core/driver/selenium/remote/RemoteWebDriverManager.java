@@ -14,8 +14,8 @@ public enum RemoteWebDriverManager implements IRemoteWebDriverSetup {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("driver.version", browserProperties.getProperty("driver.version"));
             capabilities.setCapability("browserName", "chrome");
-            capabilities.setCapability("platform", "LINUX");
-            capabilities.setCapability("platformName", "LINUX");
+            capabilities.setCapability("platform", browserProperties.getProperty("platform"));
+            capabilities.setCapability("platformName", browserProperties.getProperty("platform.name"));
             capabilities.setCapability("version",browserProperties.getProperty("browser.version"));
             return capabilities;
         }

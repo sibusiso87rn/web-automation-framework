@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Stream;
 
 
 /**
@@ -88,7 +89,12 @@ public class PropertiesUtil {
         logger.info("Finished importing appium properties");
         //Print properties file for debugging
         appiumProperties.entrySet().forEach(appiumProperty -> getProperty((String)appiumProperty.getKey()));
+    }
 
+    public static Properties mergeProperties(Properties... properties) {
+        logger.debug("Merging props");
+        return Stream.of(properties)
+                .collect(Properties::new, Map::putAll, Map::putAll);
     }
 
 }

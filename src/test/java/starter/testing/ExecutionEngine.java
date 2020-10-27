@@ -35,8 +35,8 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
 
 
     @BeforeClass(alwaysRun = true)
-    @Parameters({"environment","browser","browser.version","browser.run.environment","browser.name"})
-    public void setTestNGProperties(String environment,String browser,String browserVersion,String browserLocation,String browserName) throws Exception{
+    @Parameters({"environment","test.configuration","run.environment"})
+    public void setTestNGProperties(String environment,String testConfiguration,String runEnvironment) throws Exception{
 
         String baseUrl;
 
@@ -47,7 +47,7 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         EnvironmentConfig.getEnvironmentConfigInstance();
 
         //Initialize driver properties
-        ApplicationContext.getTestConfiguration().createTestConfigProperties(browser,browserVersion,browserLocation,browserName);
+        ApplicationContext.getTestConfiguration().createTestConfigProperties(testConfiguration);
 
         //Read device details from the testcase on testng xml
         System.setProperty("configs.set","true");
