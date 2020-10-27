@@ -4,9 +4,10 @@
     <test name="FireFox">
         <parameter name="environment"             value="uat"/>
         <parameter name="browser"                 value="firefox"/>
-        <parameter name="browser.version"         value="0.27.0"/>
+        <parameter name="browser.version"         value=""/>
         <parameter name="browser.name"            value="geckodriver"/>
         <parameter name="browser.run.environment" value="grid"/>
+        <parameter name="grid.remote.url"         value="localhost/0:0:0:0:0:0:0:1:4444"/>
         <classes>
             <class name="starter.testing.ExecutionEngine"/>
         </classes>

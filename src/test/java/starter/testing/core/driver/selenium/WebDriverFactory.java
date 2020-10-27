@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import starter.testing.core.driver.selenium.local.LocalDriverManager;
 import starter.testing.core.driver.selenium.remote.RemoteWebDriverManager;
 
+import java.net.URL;
 import java.util.Properties;
 
 public class WebDriverFactory {
@@ -52,11 +53,10 @@ public class WebDriverFactory {
                 driver              = localDriverManager.getLocalWebDriverObject(desiredCapabilities,localDriverManager.getDriverLocation());
                 break;
             case GRID:
-                remoteWebDriverManager  = RemoteWebDriverManager.valueOf(driverProperties.getProperty("browser"));
-                logger.info("Creating web driver for browser %s", driverProperties.getProperty("browser"));
-                desiredCapabilities = remoteWebDriverManager.getDesiredCapabilities(driverProperties);
-                driver              = remoteWebDriverManager.getWebDriverObject(null,desiredCapabilities);
-                break;
+                logger.info("Creating remote web driver for browser %s, running on remote url %s", driverProperties.getProperty("browser"),driverProperties.getProperty("grid.remote.url"));
+                remoteWebDriverManager  = RemoteWebDriverManager.valueOf(driverProperties.getProperty("browser").toUpperCase());
+                desiredCapabilities     = remoteWebDriverManager.getDesiredCapabilities(driverProperties);
+                driver                  = remoteWebDriverManager.getWebDriverObject(new URL(driverProperties.getProperty("grid.remote.url")),desiredCapabilities);
             default:
         }
         webDriverThreadLocal.set(driver);

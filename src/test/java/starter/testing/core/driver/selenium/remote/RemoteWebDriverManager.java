@@ -14,7 +14,7 @@ public enum RemoteWebDriverManager implements IRemoteWebDriverSetup {
             capabilities.setCapability("os", browserProperties.getProperty("os",""));
             capabilities.setCapability("os_version", browserProperties.getProperty("os_version",""));
             capabilities.setCapability("browser", "chrome");
-            capabilities.setCapability("browser_version", browserProperties.getProperty("browser_version",""));
+            capabilities.setCapability("browser_version", browserProperties.getProperty("browser.version",""));
             return capabilities;
         }
 
@@ -28,7 +28,7 @@ public enum RemoteWebDriverManager implements IRemoteWebDriverSetup {
             capabilities.setCapability("os", browserProperties.getProperty("os",""));
             capabilities.setCapability("os_version", browserProperties.getProperty("os_version",""));
             capabilities.setCapability("browser", "firefox");
-            capabilities.setCapability("browser_version", browserProperties.getProperty("browser_version",""));
+            capabilities.setCapability("browser_version", browserProperties.getProperty("browser.version",""));
             return capabilities;
         }
 
@@ -42,7 +42,7 @@ public enum RemoteWebDriverManager implements IRemoteWebDriverSetup {
             capabilities.setCapability("os", browserProperties.getProperty("os",""));
             capabilities.setCapability("os_version", browserProperties.getProperty("os_version",""));
             capabilities.setCapability("browser", "ie");
-            capabilities.setCapability("browser_version", browserProperties.getProperty("browser_version",""));
+            capabilities.setCapability("browser_version", browserProperties.getProperty("browser.version",""));
             return capabilities;
         }
 
