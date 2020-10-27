@@ -64,7 +64,11 @@ public class PropertiesUtil {
     }
 
     public static void printProperties(Properties properties){
-        properties.entrySet().forEach(entry -> System.out.println(entry.getKey() +" " + entry.getValue()));
+        logger.debug("");
+        logger.debug("===Current Properties===");
+        properties.entrySet().forEach(entry -> logger.debug("{}={}",entry.getKey(),entry.getValue()));
+        logger.debug("===Current Properties===");
+        logger.debug("");
     }
 
     public static String getProperty(String key) {
@@ -82,7 +86,6 @@ public class PropertiesUtil {
         Properties appiumProperties = getProperties(fileName);
         importToSystemProperties(appiumProperties);
         logger.info("Finished importing appium properties");
-
         //Print properties file for debugging
         appiumProperties.entrySet().forEach(appiumProperty -> getProperty((String)appiumProperty.getKey()));
 
