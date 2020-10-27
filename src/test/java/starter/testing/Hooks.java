@@ -10,6 +10,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import starter.testing.core.util.ApplicationContext;
 
+import java.io.IOException;
+
 public class Hooks {
 
     private static final Logger logger = LogManager.getLogger(Hooks.class);
@@ -28,6 +30,7 @@ public class Hooks {
 
         //Each scenario is independent from each other and always starts from the log on page, we restart each time
         restartApplication();
+
     }
 
     @Before
@@ -38,14 +41,13 @@ public class Hooks {
     }
 
 
-    //If there is a need to take a screenshot after each step
+    //If there is a need to take a screenshot after each step :(
     @AfterStep
     public void takeScreenshotAfterStep(Scenario scenario) {
         takeScreenshot(scenario);
     }
 
-
-    private void takeScreenshotOnFailure(Scenario scenario) {
+    private void takeScreenshotOnFailure(Scenario scenario) throws IOException {
         logger.info("Taking screenshot IF Test Failed");
         if (scenario.isFailed()) {
             takeScreenshot(scenario);
