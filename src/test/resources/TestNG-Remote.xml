@@ -7,7 +7,18 @@
         <parameter name="browser.version"         value=""/>
         <parameter name="browser.name"            value="geckodriver"/>
         <parameter name="browser.run.environment" value="grid"/>
-        <parameter name="grid.remote.url"         value="localhost/0:0:0:0:0:0:0:1:4444"/>
+        <parameter name="grid.remote.url"         value="http://localhost:4444/"/>
+        <classes>
+            <class name="starter.testing.ExecutionEngine"/>
+        </classes>
+    </test>
+    <test name="Chrome">
+        <parameter name="environment"             value="uat"/>
+        <parameter name="browser"                 value="chrome"/>
+        <parameter name="browser.version"         value=""/>
+        <parameter name="browser.name"            value="geckodriver"/>
+        <parameter name="browser.run.environment" value="grid"/>
+        <parameter name="grid.remote.url"         value="http://localhost:4444/"/>
         <classes>
             <class name="starter.testing.ExecutionEngine"/>
         </classes>
