@@ -69,7 +69,8 @@ public class CucumberReport {
         }
 
         configuration.addClassifications("Username", System.getProperty("user.name"));
-        configuration.addClassifications("Device", System.getProperty("device.name"));
+        configuration.addClassifications("Browser",  ApplicationContext.getTestConfiguration().getProperties().getProperty("browser").toUpperCase());
+        configuration.addClassifications("Browser Version",ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.version",""));
         configuration.addClassifications("Platform Version", System.getProperty("os.name"));
 
         ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);

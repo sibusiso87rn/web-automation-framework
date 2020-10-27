@@ -40,7 +40,7 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
             capabilities.setCapability("os", ApplicationContext.getTestConfiguration().getProperties().getProperty("os",""));
             capabilities.setCapability("os_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("os_version",""));
             capabilities.setCapability("browser", "chrome");
-            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser_version",""));
+            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.version",""));
             return capabilities;
         }
 
