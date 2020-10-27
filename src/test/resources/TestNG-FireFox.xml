@@ -2,11 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Regression" thread-count="1" parallel="tests">
     <test name="FireFox">
-        <parameter name="environment"             value="uat"/>
-        <parameter name="browser"                 value="firefox"/>
-        <parameter name="browser.version"         value="0.27.0"/>
-        <parameter name="browser.name"            value="geckodriver"/>
-        <parameter name="browser.run.environment" value="local"/>
+        <parameter name="environment"        value="uat"/>
+        <parameter name="test.configuration" value="firefoxlocal.properties"/>
+        <parameter name="run.environment"    value="local"/>
         <classes>
             <class name="starter.testing.ExecutionEngine"/>
         </classes>

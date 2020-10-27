@@ -15,10 +15,8 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
     CHROME {
         public DesiredCapabilities getDesiredCapabilities(){
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("os", ApplicationContext.getTestConfiguration().getProperties().getProperty("os",""));
-            capabilities.setCapability("os_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("os.version",""));
             capabilities.setCapability("browser", "chrome");
-            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.version",""));
+            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.version"));
             return capabilities;
         }
 
@@ -37,10 +35,8 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
     FIREFOX {
         public DesiredCapabilities getDesiredCapabilities(){
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("os", ApplicationContext.getTestConfiguration().getProperties().getProperty("os",""));
-            capabilities.setCapability("os_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("os_version",""));
-            capabilities.setCapability("browser", "chrome");
-            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.version",""));
+            capabilities.setCapability("browser", "firefox");
+            capabilities.setCapability("browser_version", ApplicationContext.getTestConfiguration().getProperties().getProperty("browser.version"));
             return capabilities;
         }
 
