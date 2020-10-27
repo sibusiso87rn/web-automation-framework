@@ -45,7 +45,7 @@ public class CucumberReport {
         jsonFiles.add("target/cucumber-report.json");
         logger.info("Setting report target to : target/cucumber-report.json");
 
-        String projectName = "Automation Attacker";
+        String projectName = "Web Automation";
 
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
         configuration.setBuildNumber(buildNumber);

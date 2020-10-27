@@ -12,7 +12,6 @@ import org.testng.annotations.*;
 import starter.testing.core.util.ApplicationContext;
 import starter.testing.core.util.CucumberReport;
 import starter.testing.core.util.environment.EnvironmentConfig;
-import java.util.concurrent.TimeUnit;
 import starter.testing.tests.TestConstants;
 
 /**
@@ -60,7 +59,7 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
 
         //Launch
         ApplicationContext.getTestBean().getWebDriver().get(baseUrl);
-
+        logger.debug("Driver connecting to [{}] for scenario",ApplicationContext.getTestBean().getWebDriver().getCurrentUrl());
         logger.info("Finished setting the TestNG properties.");
     }
 

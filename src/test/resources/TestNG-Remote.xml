@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Regression" thread-count="1" parallel="tests">
-    <test name="FireFox">
-        <parameter name="environment"             value="uat"/>
-        <parameter name="browser"                 value="firefox"/>
-        <parameter name="browser.version"         value=""/>
-        <parameter name="browser.name"            value="geckodriver"/>
-        <parameter name="browser.run.environment" value="grid"/>
-        <parameter name="grid.remote.url"         value="http://localhost:4444/"/>
-        <classes>
-            <class name="starter.testing.ExecutionEngine"/>
-        </classes>
-    </test>
     <test name="Chrome">
         <parameter name="environment"             value="uat"/>
+        <parameter name="platform"                value="linux"/>
         <parameter name="browser"                 value="chrome"/>
-        <parameter name="browser.version"         value=""/>
-        <parameter name="browser.name"            value="geckodriver"/>
+        <parameter name="browser.version"         value="83.0.4103.61"/>
+        <parameter name="browser.name"            value="chrome"/>
         <parameter name="browser.run.environment" value="grid"/>
-        <parameter name="grid.remote.url"         value="http://localhost:4444/"/>
         <classes>
             <class name="starter.testing.ExecutionEngine"/>
         </classes>
