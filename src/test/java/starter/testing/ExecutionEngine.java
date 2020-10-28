@@ -21,6 +21,7 @@ import starter.testing.tests.TestConstants;
  */
 @CucumberOptions(
         plugin  = {
+                "starter.testing.core.util.report.ExtentReportListener",
                 "pretty",
                 "json:target/cucumber-report.json",
         },

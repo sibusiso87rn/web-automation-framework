@@ -9,14 +9,6 @@
             <class name="starter.testing.ExecutionEngine"/>
         </classes>
     </test>
-    <test name="Firefox">
-        <parameter name="environment"        value="uat"/>
-        <parameter name="test.configuration" value="firefoxremote.properties"/>
-        <parameter name="run.environment"    value="grid"/>
-        <classes>
-            <class name="starter.testing.ExecutionEngine"/>
-        </classes>
-    </test>
 </suite>
 
 
