@@ -1,11 +1,11 @@
-package starter.testing.core.driver.selenium;
+package starter.testing.core.driver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import starter.testing.core.driver.selenium.local.LocalDriverManager;
-import starter.testing.core.driver.selenium.remote.RemoteWebDriverManager;
+import starter.testing.core.driver.remote.RemoteWebDriverManager;
+import starter.testing.core.driver.local.LocalDriverManager;
 
 import java.net.URL;
 import java.util.Properties;
@@ -57,6 +57,7 @@ public class WebDriverFactory {
                 remoteWebDriverManager  = RemoteWebDriverManager.valueOf(driverProperties.getProperty("browser").toUpperCase());
                 desiredCapabilities     = remoteWebDriverManager.getDesiredCapabilities(driverProperties);
                 driver                  = remoteWebDriverManager.getWebDriverObject(new URL(driverProperties.getProperty("grid.remote.url")),desiredCapabilities);
+                break;
             default:
         }
         webDriverThreadLocal.set(driver);

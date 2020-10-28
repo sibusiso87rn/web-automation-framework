@@ -1,4 +1,4 @@
-package starter.testing.core.driver.selenium.remote;
+package starter.testing.core.driver.remote;
 
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -14,7 +14,7 @@ public enum RemoteWebDriverManager implements IRemoteWebDriverSetup {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("driver.version", browserProperties.getProperty("driver.version"));
             capabilities.setCapability("browserName", "chrome");
-            capabilities.setCapability("platform", browserProperties.getProperty("platform"));
+            capabilities.setCapability("platform", browserProperties.getProperty("platform").toUpperCase());
             capabilities.setCapability("platformName", browserProperties.getProperty("platform.name"));
             capabilities.setCapability("version",browserProperties.getProperty("browser.version"));
             return capabilities;
@@ -28,10 +28,10 @@ public enum RemoteWebDriverManager implements IRemoteWebDriverSetup {
         public DesiredCapabilities getDesiredCapabilities(Properties browserProperties){
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("browserName", "firefox");
-            capabilities.setCapability("platform", "LINUX");
-            capabilities.setCapability("platformName", "LINUX");
-            capabilities.setCapability("version","76.0.1");
-            capabilities.setCapability("driver.version", "3.141.59");
+            capabilities.setCapability("platform", browserProperties.getProperty("platform").toUpperCase());
+            capabilities.setCapability("platformName", browserProperties.getProperty("platform.name"));
+            capabilities.setCapability("version",browserProperties.getProperty("browser.version"));
+            capabilities.setCapability("driver.version", browserProperties.getProperty("driver.version"));
 
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments("--start-maximized");

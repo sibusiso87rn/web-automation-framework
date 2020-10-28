@@ -1,4 +1,4 @@
-package starter.testing.core.driver.selenium.local;
+package starter.testing.core.driver.local;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-import starter.testing.core.driver.selenium.WebDriverFactory;
+import starter.testing.core.driver.WebDriverFactory;
 import starter.testing.core.util.environment.TestConfigurationProperty;
 
 import java.util.Properties;
@@ -37,7 +37,6 @@ public class TestBean {
     }
 
     public void createThreadLocalDriver(Properties appiumProperties) throws Exception {
-        logger.info("Creating thread local driver");
         WebDriverFactory.getInstance().createThreadLocalDriver(appiumProperties);
     }
 

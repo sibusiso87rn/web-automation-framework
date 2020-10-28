@@ -52,13 +52,12 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         //Read device details from the testcase on testng xml
         System.setProperty("configs.set","true");
 
-        logger.info("Creating driver for scenario");
         ApplicationContext.getTestBean().createDriver();
 
         baseUrl = EnvironmentConfig.getEnvironmentConfigInstance().getConfigValue(TestConstants.BASE_URL);
 
         //Launch
-        ApplicationContext.getTestBean().getWebDriver().get(baseUrl);
+        ApplicationContext.getTestBean().getWebDriver().get("https://www.browserstack.com/");
         logger.debug("Driver connecting to [{}] for scenario",ApplicationContext.getTestBean().getWebDriver().getCurrentUrl());
         logger.info("Finished setting the TestNG properties.");
     }
@@ -82,11 +81,17 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
     public void tearDownClass() {
         testNGCucumberRunner.finish();
 
+        try {
+            //Quit appium driver
+            ApplicationContext.getTestBean().getWebDriver().quit();
+        }catch (Exception e){
+            logger.error("Error quitting driver {}", e.fillInStackTrace());
+        }
+
         //Create and finalize the report - This is done once, only after the tests have been completed.
         new CucumberReport().createReport();
 
-        //Quit appium driver
-        ApplicationContext.getWebDriver().quit();
+
     }
 
 
