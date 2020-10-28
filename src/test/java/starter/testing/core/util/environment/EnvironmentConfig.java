@@ -16,10 +16,6 @@ import starter.testing.core.util.file.FilesUtil;
 public class EnvironmentConfig {
 
     private static Config config;
-    private static IEnvironmentProperties environmentProperties;
-
-    //App path
-    private static String binariesPath = null;
 
     //Singleton instance
     private static EnvironmentConfig environmentConfig   = null;
@@ -40,7 +36,7 @@ public class EnvironmentConfig {
             throw new Exception("Test environment variable is null, please select environment");
         }
 
-        environmentProperties = ConfigFactory.create(IEnvironmentProperties.class);
+        IEnvironmentProperties environmentProperties = ConfigFactory.create(IEnvironmentProperties.class);
 
         logger.info("Loading test environment configuration for : "+ environment.toUpperCase());
         configfilepath = environmentProperties.getConfigPath()+environment.toLowerCase()+".json";

@@ -15,10 +15,7 @@ public class WebDriverFactory {
     private static final Logger logger = LogManager.getLogger(WebDriverFactory.class);
 
     private static WebDriverFactory webDriverFactoryInstance     = null;
-    private static LocalDriverManager localDriverManager         = null;
-    private static RemoteWebDriverManager remoteWebDriverManager = null;
-    private static ThreadLocal<WebDriver> webDriverThreadLocal   = new ThreadLocal<>();
-    private static DesiredCapabilities desiredCapabilities       = null;
+    private static final ThreadLocal<WebDriver> webDriverThreadLocal   = new ThreadLocal<>();
 
     private WebDriverFactory(){
 
@@ -47,16 +44,16 @@ public class WebDriverFactory {
         WebDriver driver = null;
         switch (browserRunEnvironment){
             case LOCAL:
-                localDriverManager  = LocalDriverManager.valueOf(driverProperties.getProperty("browser").toUpperCase());
+                LocalDriverManager localDriverManager = LocalDriverManager.valueOf(driverProperties.getProperty("browser").toUpperCase());
                 logger.info("Creating web driver for browser {}", driverProperties.getProperty("browser"));
-                desiredCapabilities = localDriverManager.getDesiredCapabilities();
-                driver              = localDriverManager.getLocalWebDriverObject(desiredCapabilities,localDriverManager.getDriverLocation());
+                DesiredCapabilities desiredCapabilities = localDriverManager.getDesiredCapabilities();
+                driver              = localDriverManager.getLocalWebDriverObject(desiredCapabilities, localDriverManager.getDriverLocation());
                 break;
             case GRID:
                 logger.info("Creating remote web driver for browser {}, them remote url is {}", driverProperties.getProperty("browser"),driverProperties.getProperty("grid.remote.url"));
-                remoteWebDriverManager  = RemoteWebDriverManager.valueOf(driverProperties.getProperty("browser").toUpperCase());
-                desiredCapabilities     = remoteWebDriverManager.getDesiredCapabilities(driverProperties);
-                driver                  = remoteWebDriverManager.getWebDriverObject(new URL(driverProperties.getProperty("grid.remote.url")),desiredCapabilities);
+                RemoteWebDriverManager remoteWebDriverManager = RemoteWebDriverManager.valueOf(driverProperties.getProperty("browser").toUpperCase());
+                desiredCapabilities = remoteWebDriverManager.getDesiredCapabilities(driverProperties);
+                driver                  = remoteWebDriverManager.getWebDriverObject(new URL(driverProperties.getProperty("grid.remote.url")), desiredCapabilities);
                 break;
             default:
         }

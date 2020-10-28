@@ -22,12 +22,10 @@ import java.util.List;
 
 public class CucumberReport {
 
-    private static final Logger logger      = LoggerFactory.getLogger(CucumberReport.class);
-    private static String currentReportName = null;
-    private String trendsPathName           = null;
-    private String projectName              = "Automation Project";
-    private String buildNumber              = "Build Number 1";
-    private int trendsLimit                 = 0;
+    private static final Logger logger = LoggerFactory.getLogger(CucumberReport.class);
+    private String trendsPathName;
+    private String projectName = "Automation Project";
+    private int trendsLimit;
 
 
     public CucumberReport(){
@@ -48,6 +46,7 @@ public class CucumberReport {
         String projectName = "Web Automation";
 
         Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+        String buildNumber = "Build Number 1";
         configuration.setBuildNumber(buildNumber);
 
         //Trends this will file will need to maintained and not deleted in order to keep the trend

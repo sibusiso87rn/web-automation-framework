@@ -57,7 +57,7 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         baseUrl = EnvironmentConfig.getEnvironmentConfigInstance().getConfigValue(TestConstants.BASE_URL);
 
         //Launch
-        ApplicationContext.getTestBean().getWebDriver().get("https://www.browserstack.com/");
+        ApplicationContext.getTestBean().getWebDriver().get(baseUrl);
         logger.debug("Driver connecting to [{}] for scenario",ApplicationContext.getTestBean().getWebDriver().getCurrentUrl());
         logger.info("Finished setting the TestNG properties.");
     }
