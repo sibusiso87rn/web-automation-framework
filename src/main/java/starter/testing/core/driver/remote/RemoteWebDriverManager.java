@@ -1,5 +1,6 @@
 package starter.testing.core.driver.remote;
 
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -17,6 +18,10 @@ public enum RemoteWebDriverManager implements IRemoteWebDriverSetup {
             capabilities.setCapability("platform", browserProperties.getProperty("platform").toUpperCase());
             capabilities.setCapability("platformName", browserProperties.getProperty("platform.name"));
             capabilities.setCapability("version",browserProperties.getProperty("browser.version"));
+
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("–lang="+browserProperties.getProperty("browser.lang"));
+            capabilities.merge(options);
             return capabilities;
         }
 
@@ -35,8 +40,8 @@ public enum RemoteWebDriverManager implements IRemoteWebDriverSetup {
 
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments("--start-maximized");
+            options.addPreference("intl.accept_languages",browserProperties.getProperty("browser.lang"));
             capabilities.merge(options);
-
             return capabilities;
         }
 

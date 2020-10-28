@@ -1,10 +1,11 @@
 @Dev
 Feature: Dev
   Background:
-    Given The user is on the landing page
+    Given The user is on the google search page
 
-  Scenario: The user is navigated to the landing screen
-    Then The landing page paragraph reads "Welcome to the NodeJS Shopping Cart"
+  Scenario: When the user on the landing page, the Search and I'm feeling lucky button are visible
+    Then The search button is visible
+    And The I'm feeling lucky button is visible
 
 
 

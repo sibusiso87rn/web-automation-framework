@@ -6,6 +6,9 @@ import io.cucumber.testng.PickleEventWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.*;
@@ -28,6 +31,7 @@ import starter.testing.tests.TestConstants;
         tags        = {"@Dev"}
 )
 @ContextConfiguration(locations = {"classpath:spring-bean.xml"})
+@Component
 public class ExecutionEngine extends AbstractTestNGSpringContextTests {
 
     private TestNGCucumberRunner testNGCucumberRunner;
@@ -90,8 +94,6 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
 
         //Create and finalize the report - This is done once, only after the tests have been completed.
         new CucumberReport().createReport();
-
-
     }
 
 

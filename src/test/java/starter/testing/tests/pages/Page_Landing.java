@@ -12,17 +12,24 @@ import starter.testing.core.BasePage;
 @Scope("prototype")
 public class Page_Landing extends BasePage {
 
-    @FindBy(css = "h1")
-    WebElement lblPageTitle;
+    @FindBy(name = "btnK")
+    WebElement btnSearchButton;
 
-    @FindBy(css = "p")
-    WebElement lblPageParagraph;
+    @FindBy(name = "btnI")
+    WebElement btnImFeelingLucky;
 
-    public WebElement getLblPageTitle() {
-        return lblPageTitle;
+    @FindBy(id = "hplogo")
+    WebElement lblLogo;
+
+    public WebElement getBtnSearchButton() {
+        return btnSearchButton;
     }
 
-    public WebElement getLblPageParagraph() {
-        return lblPageParagraph;
+    public WebElement getBtnImFeelingLucky() {
+        return btnImFeelingLucky;
+    }
+
+    public WebElement getLblLogo() {
+        return lblLogo;
     }
 }
