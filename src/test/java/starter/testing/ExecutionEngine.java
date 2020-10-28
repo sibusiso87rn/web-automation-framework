@@ -1,19 +1,18 @@
 package starter.testing;
 
-import io.cucumber.testng.CucumberFeatureWrapper;
+//import io.cucumber.testng.CucumberFeatureWrapper;
 import io.cucumber.testng.CucumberOptions;
-import io.cucumber.testng.PickleEventWrapper;
+import io.cucumber.testng.FeatureWrapper;
+//import io.cucumber.testng.PickleEventWrapper;
+import io.cucumber.testng.PickleWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.*;
 import starter.testing.core.util.ApplicationContext;
-import starter.testing.core.util.CucumberReport;
+import starter.testing.core.util.report.CucumberReport;
 import starter.testing.core.util.environment.EnvironmentConfig;
 import starter.testing.tests.TestConstants;
 
@@ -23,15 +22,13 @@ import starter.testing.tests.TestConstants;
 @CucumberOptions(
         plugin  = {
                 "pretty",
-                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                 "json:target/cucumber-report.json",
         },
         features    = {"src/test/resources/features" },
         glue        = {""},
-        tags        = {"@Dev"}
+        tags        = "@Dev"
 )
 @ContextConfiguration(locations = {"classpath:spring-bean.xml"})
-@Component
 public class ExecutionEngine extends AbstractTestNGSpringContextTests {
 
     private TestNGCucumberRunner testNGCucumberRunner;
@@ -72,8 +69,8 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
     }
 
     @Test(groups = "cucumber scenarios", description = "Runs Cucumber Scenarios", dataProvider = "scenarios")
-    public void scenario(PickleEventWrapper pickleEvent, CucumberFeatureWrapper cucumberFeature) throws Throwable {
-        testNGCucumberRunner.runScenario(pickleEvent.getPickleEvent());
+    public void scenario(PickleWrapper pickleEvent, FeatureWrapper cucumberFeature) throws Throwable {
+        testNGCucumberRunner.runScenario(pickleEvent.getPickle());
     }
 
     @DataProvider
@@ -84,16 +81,16 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
     @AfterClass(alwaysRun = true)
     public void tearDownClass() {
         testNGCucumberRunner.finish();
-
-        try {
-            //Quit appium driver
-            ApplicationContext.getTestBean().getWebDriver().quit();
-        }catch (Exception e){
-            logger.error("Error quitting driver {}", e.fillInStackTrace());
-        }
+        //Quit appium driver
+        ApplicationContext.getTestBean().getWebDriver().quit();
 
         //Create and finalize the report - This is done once, only after the tests have been completed.
         new CucumberReport().createReport();
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void tearCreateReport() {
+
     }
 
 
