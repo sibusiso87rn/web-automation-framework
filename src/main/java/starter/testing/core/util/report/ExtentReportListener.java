@@ -9,18 +9,25 @@ import com.aventstack.extentreports.gherkin.model.Scenario;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.EventListener;
 import io.cucumber.plugin.event.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.testng.annotations.AfterTest;
+import starter.testing.core.util.ApplicationContext;
+import starter.testing.core.util.environment.TestConfigurationProperty;
 
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+public class ExtentReportListener implements ConcurrentEventListener{
 
-public class ExtentReportListener implements EventListener{
-
-    private ExtentSparkReporter spark;
-    private ExtentReports extent;
+    private static ExtentSparkReporter spark;
+    private static ExtentReports extent;
 
     Map<String, ExtentTest> feature = new HashMap<String, ExtentTest>();
     ExtentTest scenario;
@@ -44,7 +51,6 @@ public class ExtentReportListener implements EventListener{
         publisher.registerHandlerFor(TestStepStarted.class, this::stepStarted);
         publisher.registerHandlerFor(TestStepFinished.class, this::stepFinished);
         publisher.registerHandlerFor(EmbedEvent.class, this::embedEvent);
-
     };
     /*
      * Here we set argument type as TestRunStarted if you set anything else then the
@@ -82,6 +88,7 @@ public class ExtentReportListener implements EventListener{
     private void ScenarioStarted(TestCaseStarted event) {
         String featureName = event.getTestCase().getUri().toString();
         scenario = feature.get(featureName).createNode(event.getTestCase().getName());
+        scenario.assignDevice(ApplicationContext.getTestConfiguration().getProperties().getProperty("browser"));
     };
     // step started event
     // here we creates the test node
@@ -118,4 +125,5 @@ public class ExtentReportListener implements EventListener{
     private void embedEvent(EmbedEvent event) {
         step.addScreenCaptureFromBase64String(Base64.getEncoder().encodeToString(event.getData()),"evidence");
     };
+
 }
