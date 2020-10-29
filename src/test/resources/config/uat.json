@@ -29,6 +29,11 @@
       "key":   "extent.log.before.hook",
       "value": "false"
     }
+    ,
+    {
+      "key":   "extent.log.after.hook",
+      "value": "false"
+    }
   ],
   "restServiceList": [{
     "serverPort": "8080",

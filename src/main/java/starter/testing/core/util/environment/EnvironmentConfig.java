@@ -92,11 +92,12 @@ public class EnvironmentConfig {
 
     public static String getConfigValue(String key){
         ConfigValue results = getConfig(key);
+        logger.debug("Searching for config key {}",key);
         if(results!=null){
-            logger.debug("Found, value is ["+ results.getValue()+"]");
+            logger.debug("[{}] key value found, the value is [{}]",key,results.getValue());
             return resolveEnvironment(results.getValue());
         }else{
-            logger.error("ConfigValue with key " + key + " not found");
+            logger.error("[{}] key value not found, the value is [{}]",key,null);
             return null;
         }
     }

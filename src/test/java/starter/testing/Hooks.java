@@ -28,10 +28,6 @@ public class Hooks {
 
         //Quit appium driver after each scenario
         logger.info("Quiting driver after scenario " + scenario.getName());
-
-        //Each scenario is independent from each other and always starts from the log on page, we restart each time
-        restartApplication();
-
     }
 
     @Before

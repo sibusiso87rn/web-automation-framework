@@ -7,16 +7,17 @@ import com.aventstack.extentreports.model.Attribute;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.aventstack.extentreports.service.ExtentService;
-import io.cucumber.messages.Messages;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
-import starter.testing.core.CoreConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import starter.testing.core.util.ApplicationContext;
-import starter.testing.core.util.environment.EnvironmentConfig;
 
 import java.util.*;
 
 public class ExtentReportListener implements ConcurrentEventListener{
+
+    private static final Logger logger = LoggerFactory.getLogger(ExtentReportListener.class);
 
     private static ExtentSparkReporter spark;
     private static Boolean runStarted       = Boolean.FALSE;
@@ -25,6 +26,7 @@ public class ExtentReportListener implements ConcurrentEventListener{
     private ExtentTest step;
 
     public ExtentReportListener() {
+        logger.info("Creating Listener {}",Thread.currentThread());
     };
 
     @Override
@@ -106,29 +108,36 @@ public class ExtentReportListener implements ConcurrentEventListener{
             PickleStepTestStep steps = (PickleStepTestStep) event.getTestStep();
             stepName = steps.getStep().getText();
             keyword  = steps.getStep().getKeyword();
+            logger.debug("Logging hooks on the report stepName [{}] stepKeyword [{}]",stepName,keyword);
+            step = scenario.createNode(Given.class, keyword + " " + stepName);
         } else {
             // Same with HookTestStep
-            if(Boolean.getBoolean(EnvironmentConfig.getEnvironmentConfigInstance().getConfigValue(CoreConstants.EXTENT_CONFIG_LOG_BEFORE_HOOK))){
-                HookTestStep hoo = (HookTestStep) event.getTestStep();
-                stepName = hoo.getHookType().name();
+            logger.debug("Determine if will log hooks-before on the report hookStep is {}",event.getTestStep().getCodeLocation());
+            if(isHooksAfterScenario(event.getTestStep().getCodeLocation())){
+                step     = scenario.createNode(Given.class, "After Scenario");
+                logger.debug("Logging hooks step {}",event.getTestStep());
+            }else{
+                step = null;
             }
         }
-        step = scenario.createNode(Given.class, keyword + " " + stepName);
     };
     // This is triggered when TestStep is finished
     private void stepFinished(TestStepFinished event) {
-        if (event.getResult().getStatus().toString() == "PASSED") {
-            step.log(Status.PASS, "This passed");
-        } else if (event.getResult().getStatus().toString() == "SKIPPED"){
-            step.log(Status.SKIP, "This step was skipped ");
-        } else {
-            step.log(Status.FAIL, event.getResult().getError());
+        logger.debug("Step finished event {}",event.getResult().toString());
+        if(step!=null){
+            if (event.getResult().getStatus().toString() == "PASSED") {
+                step.log(Status.PASS, "This passed");
+            } else if (event.getResult().getStatus().toString() == "SKIPPED"){
+                step.log(Status.SKIP, "This step was skipped ");
+            } else {
+                step.log(Status.FAIL, event.getResult().getError());
+            }
         }
     };
 
     // This is triggered when TestStep is finished
     private void embedEvent(EmbedEvent event) {
-        step.addScreenCaptureFromBase64String(Base64.getEncoder().encodeToString(event.getData()),"evidence");
+        step.addScreenCaptureFromBase64String(Base64.getEncoder().encodeToString(event.getData()),"Attachment");
     };
 
     private boolean canAssignDevice(ExtentTest test, String device){
@@ -137,6 +146,10 @@ public class ExtentReportListener implements ConcurrentEventListener{
                  return false;
          }
          return true;
+    }
+
+    private boolean isHooksAfterScenario(String hooksStepName){
+        return hooksStepName.contains("Hooks.afterScenario(io.cucumber.java.Scenario");
     }
 
 }
