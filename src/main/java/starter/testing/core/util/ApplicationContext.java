@@ -77,12 +77,6 @@ public class ApplicationContext implements ApplicationContextAware {
         return  ApplicationContext.getTestBean().getWebDriver();
     }
 
-    //Gets the test configuration for the session
-    public static TestConfigurationProperty getTestConfiguration(){
-        logger.info("Getting the test configuration application context");
-        return (TestConfigurationProperty) ApplicationContext.getComponent(TestConfigurationProperty.class);
-    }
-
     //Gets the page from the Page Object from Spring Context
     public static Object getComponent(Class clazz){
         return (clazz.cast(CONTEXT.getBean(clazz)));

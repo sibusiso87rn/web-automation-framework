@@ -24,6 +24,11 @@
       "key":   "grid.settings.name",
       "value": "grid.properties"
     }
+    ,
+    {
+      "key":   "extent.log.before.hook",
+      "value": "false"
+    }
   ],
   "restServiceList": [{
     "serverPort": "8080",

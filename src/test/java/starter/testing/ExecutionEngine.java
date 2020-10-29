@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.*;
 import starter.testing.core.util.ApplicationContext;
+import starter.testing.core.util.environment.TestConfigurationProperty;
 import starter.testing.core.util.report.CucumberReport;
 import starter.testing.core.util.environment.EnvironmentConfig;
 import starter.testing.core.util.report.ExtentReportListener;
@@ -28,7 +29,7 @@ import starter.testing.tests.TestConstants;
         },
         features    = {"src/test/resources/features" },
         glue        = {""},
-        tags        = "@Dev"
+        tags        = ""
 )
 @ContextConfiguration(locations = {"classpath:spring-bean.xml"})
 public class ExecutionEngine extends AbstractTestNGSpringContextTests {
@@ -50,7 +51,7 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         EnvironmentConfig.getEnvironmentConfigInstance();
 
         //Initialize driver properties
-        ApplicationContext.getTestConfiguration().createTestConfigProperties(testConfiguration);
+        TestConfigurationProperty.getInstance().createTestConfigProperties(testConfiguration);
 
         //Read device details from the testcase on testng xml
         System.setProperty("configs.set","true");

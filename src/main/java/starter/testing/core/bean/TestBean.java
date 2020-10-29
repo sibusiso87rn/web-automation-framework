@@ -23,9 +23,6 @@ public class TestBean {
 
     private static final Logger logger = LogManager.getLogger(TestBean.class);
 
-    @Autowired
-    private TestConfigurationProperty testConfigurationProperty;
-
     //Set the driver before the test starts
     @Bean
     public TestBean createTestBean(){
@@ -42,7 +39,14 @@ public class TestBean {
 
     public void createDriver() throws Exception {
         logger.info("Creating thread local driver");
-        createThreadLocalDriver(testConfigurationProperty.getProperties());
+        createThreadLocalDriver(TestConfigurationProperty.getInstance().getThreadLocalProperties());
+    }
+
+
+    //Gets the test configuration for the session
+    public Properties getThreadLocalProperties(){
+        logger.info("Getting the test configuration application context");
+        return TestConfigurationProperty.getInstance().getThreadLocalProperties();
     }
 
 }

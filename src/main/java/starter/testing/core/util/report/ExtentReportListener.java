@@ -1,44 +1,35 @@
 package starter.testing.core.util.report;
 
-import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.gherkin.model.Feature;
 import com.aventstack.extentreports.gherkin.model.Given;
-import com.aventstack.extentreports.gherkin.model.Scenario;
-import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.model.Attribute;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import com.aventstack.extentreports.service.ExtentService;
+import io.cucumber.messages.Messages;
 import io.cucumber.plugin.ConcurrentEventListener;
-import io.cucumber.plugin.EventListener;
 import io.cucumber.plugin.event.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.testng.annotations.AfterTest;
+import starter.testing.core.CoreConstants;
 import starter.testing.core.util.ApplicationContext;
-import starter.testing.core.util.environment.TestConfigurationProperty;
+import starter.testing.core.util.environment.EnvironmentConfig;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ExtentReportListener implements ConcurrentEventListener{
 
     private static ExtentSparkReporter spark;
-    private static ExtentReports extent;
-
-    Map<String, ExtentTest> feature = new HashMap<String, ExtentTest>();
-    ExtentTest scenario;
-    ExtentTest step;
+    private static Boolean runStarted       = Boolean.FALSE;
+    private Map<String, ExtentTest> feature = new HashMap<String, ExtentTest>();
+    private ExtentTest scenario;
+    private ExtentTest step;
 
     public ExtentReportListener() {
     };
 
     @Override
     public void setEventPublisher(EventPublisher publisher) {
-    // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         /*
          * :: is method reference , so this::collecTag means collectTags method in
          * 'this' instance. Here we says runStarted method accepts or listens to
@@ -59,54 +50,68 @@ public class ExtentReportListener implements ConcurrentEventListener{
      */
     // Here we create the reporter
     private void runStarted(TestRunStarted event) {
+
         spark  = new ExtentSparkReporter("target/test-output/");
-        extent = new ExtentReports();
+        //extent = new ExtentReports();
         spark.config().setTheme(Theme.STANDARD);
-        spark.config().setDocumentTitle("My Tittle");
+        spark.config().setDocumentTitle("Automation Report");
         //Create extent report instance with spark reporter
-        extent.attachReporter(spark);
-        extent.setSystemInfo("Application Name", "ExtentReport");
-        extent.setSystemInfo("Platform", System.getProperty("os.name"));
-        extent.setSystemInfo("Environment", "QA");
+        ExtentService.getInstance().attachReporter(spark);
+
+        synchronized (runStarted){
+            if(!runStarted){
+                ExtentService.getInstance().setSystemInfo("Application Name", "ExtentReport");
+                ExtentService.getInstance().setSystemInfo("Platform", System.getProperty("os.name"));
+                ExtentService.getInstance().setSystemInfo("Environment", "QA");
+                runStarted = true;
+            }
+        }
     };
     // TestRunFinished event is triggered when all feature file executions are
     // completed
     private void runFinished(TestRunFinished event) {
-        extent.flush();
+        ExtentService.getInstance().flush();
     };
     // This event is triggered when feature file is read
     // here we create the feature node
     private void featureRead(TestSourceRead event) {
         String featureSource = event.getUri().toString();
-        String featureName = featureSource.split(".*/")[1];
+        String featureName   = featureSource.split(".*/")[1];
         if (feature.get(featureSource) == null) {
-            feature.putIfAbsent(featureSource, extent.createTest(featureName));
+            feature.putIfAbsent(featureSource, ExtentService.getInstance().createTest(featureName));
         }
     };
     // This event is triggered when Test Case is started
     // here we create the scenario node
     private void ScenarioStarted(TestCaseStarted event) {
-        String featureName = event.getTestCase().getUri().toString();
+        String featureName   = event.getTestCase().getUri().toString();
+        String featureDevice = ApplicationContext.getTestBean().getThreadLocalProperties().getProperty("browser");
         scenario = feature.get(featureName).createNode(event.getTestCase().getName());
-        scenario.assignDevice(ApplicationContext.getTestConfiguration().getProperties().getProperty("browser"));
+        scenario.assignDevice(featureDevice);
+
+        //Assign device
+        for(ExtentTest test: feature.values()){
+            if(canAssignDevice(test, featureDevice)){
+                test.assignDevice(featureDevice);
+            }
+        }
+        event.getTestCase().getTags().forEach(tag->scenario.assignCategory(tag));
     };
-    // step started event
-    // here we creates the test node
+
     private void stepStarted(TestStepStarted event) {
         String stepName = " ";
         String keyword  = "Triggered the hook :";
-    // We checks whether the event is from a hook or step
+        // We checks whether the event is from a hook or step
         if (event.getTestStep() instanceof PickleStepTestStep) {
-    // TestStepStarted event implements PickleStepTestStep interface
-    // Which have additional methods to interact with the event object
-    // So we have to cast TestCase object to get those methods
             PickleStepTestStep steps = (PickleStepTestStep) event.getTestStep();
             stepName = steps.getStep().getText();
             keyword  = steps.getStep().getKeyword();
         } else {
-    // Same with HoojTestStep
-            HookTestStep hoo = (HookTestStep) event.getTestStep();
-            stepName = hoo.getHookType().name();
+            // Same with HookTestStep
+            if(Boolean.getBoolean(EnvironmentConfig.getEnvironmentConfigInstance().getConfigValue(CoreConstants.EXTENT_CONFIG_LOG_BEFORE_HOOK))){
+                HookTestStep hoo = (HookTestStep) event.getTestStep();
+                stepName = hoo.getHookType().name();
+            }
         }
         step = scenario.createNode(Given.class, keyword + " " + stepName);
     };
@@ -117,7 +122,7 @@ public class ExtentReportListener implements ConcurrentEventListener{
         } else if (event.getResult().getStatus().toString() == "SKIPPED"){
             step.log(Status.SKIP, "This step was skipped ");
         } else {
-            step.log(Status.FAIL, "This failed");
+            step.log(Status.FAIL, event.getResult().getError());
         }
     };
 
@@ -125,5 +130,13 @@ public class ExtentReportListener implements ConcurrentEventListener{
     private void embedEvent(EmbedEvent event) {
         step.addScreenCaptureFromBase64String(Base64.getEncoder().encodeToString(event.getData()),"evidence");
     };
+
+    private boolean canAssignDevice(ExtentTest test, String device){
+         for(Attribute deviceAttribute: test.getModel().getDeviceContext().getAll()){
+             if (deviceAttribute.getName().equalsIgnoreCase(device))
+                 return false;
+         }
+         return true;
+    }
 
 }

@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import starter.testing.core.CoreConstants;
+import starter.testing.core.driver.WebDriverFactory;
 import starter.testing.core.util.file.PropertiesUtil;
 
 import java.util.Properties;
@@ -14,10 +15,22 @@ import java.util.Properties;
 public class TestConfigurationProperty {
 
     private static ThreadLocal<Properties> driverProperties = new ThreadLocal<>();
+    private static TestConfigurationProperty testConfigurationProperty = null;
     private static final Logger logger = LogManager.getLogger(TestConfigurationProperty.class);
 
-    public Properties getProperties(){
+    private TestConfigurationProperty(){
+    }
+
+    public Properties getThreadLocalProperties(){
         return driverProperties.get();
+    }
+
+    public static TestConfigurationProperty getInstance(){
+        if(testConfigurationProperty==null){
+            logger.info("TestConfigurationProperty is instance is null, creating new instance");
+            testConfigurationProperty = new TestConfigurationProperty();
+        }
+        return testConfigurationProperty;
     }
 
     public void createTestConfigProperties(String testConfiguration){

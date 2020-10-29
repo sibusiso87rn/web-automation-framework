@@ -1,5 +1,5 @@
-@Dev
-Feature: Dev
+@Dev @LandingPage
+Feature: Landing Page
   Background:
     Given The user is on the google search page
 
