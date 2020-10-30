@@ -39,14 +39,14 @@ public class TestBean {
 
     public void createDriver() throws Exception {
         logger.info("Creating thread local driver");
-        createThreadLocalDriver(TestConfigurationProperty.getInstance().getThreadLocalProperties());
+        createThreadLocalDriver(TestConfigurationProperty.getThreadLocalProperties());
     }
 
 
     //Gets the test configuration for the session
     public Properties getThreadLocalProperties(){
         logger.info("Getting the test configuration application context");
-        return TestConfigurationProperty.getInstance().getThreadLocalProperties();
+        return TestConfigurationProperty.getThreadLocalProperties();
     }
 
 }

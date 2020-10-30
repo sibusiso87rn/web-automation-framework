@@ -1,9 +1,7 @@
 package starter.testing;
 
-//import io.cucumber.testng.CucumberFeatureWrapper;
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.FeatureWrapper;
-//import io.cucumber.testng.PickleEventWrapper;
 import io.cucumber.testng.PickleWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +13,6 @@ import starter.testing.core.util.ApplicationContext;
 import starter.testing.core.util.environment.TestConfigurationProperty;
 import starter.testing.core.util.report.CucumberReport;
 import starter.testing.core.util.environment.EnvironmentConfig;
-import starter.testing.core.util.report.ExtentReportListener;
 import starter.testing.tests.TestConstants;
 
 /**
@@ -29,7 +26,7 @@ import starter.testing.tests.TestConstants;
         },
         features    = {"src/test/resources/features" },
         glue        = {""},
-        tags        = ""
+        tags        = "@Dev"
 )
 @ContextConfiguration(locations = {"classpath:spring-bean.xml"})
 public class ExecutionEngine extends AbstractTestNGSpringContextTests {
@@ -51,13 +48,13 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         EnvironmentConfig.getEnvironmentConfigInstance();
 
         //Initialize driver properties
-        TestConfigurationProperty.getInstance().createTestConfigProperties(testConfiguration);
+        logger.info("Creating test configuration using {}",testConfiguration);
+        TestConfigurationProperty.createTestConfigProperties(testConfiguration);
 
         //Read device details from the testcase on testng xml
         System.setProperty("configs.set","true");
 
         ApplicationContext.getTestBean().createDriver();
-
         baseUrl = EnvironmentConfig.getEnvironmentConfigInstance().getConfigValue(TestConstants.BASE_URL);
 
         //Launch
