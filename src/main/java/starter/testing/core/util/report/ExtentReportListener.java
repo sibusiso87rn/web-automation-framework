@@ -3,14 +3,18 @@ package starter.testing.core.util.report;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.model.Given;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.model.Attribute;
 import com.aventstack.extentreports.service.ExtentService;
 import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import starter.testing.core.util.environment.EnvironmentConfig;
 import starter.testing.core.util.environment.TestConfigurationProperty;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class ExtentReportListener implements ConcurrentEventListener{
@@ -43,8 +47,13 @@ public class ExtentReportListener implements ConcurrentEventListener{
         synchronized (runStarted){
             if(!runStarted){
                 ExtentService.getInstance().setSystemInfo("Application Name", "ExtentReport");
-                ExtentService.getInstance().setSystemInfo("Platform", System.getProperty("os.name"));
-                ExtentService.getInstance().setSystemInfo("Environment", "QA");
+                ExtentService.getInstance().setSystemInfo("Test Environment", EnvironmentConfig.getEnvironment().toUpperCase());
+                ExtentService.getInstance().setSystemInfo("Author", System.getProperty("user.name"));
+                try{
+                    ExtentService.getInstance().setSystemInfo("Machine IP",   InetAddress.getLocalHost().getHostAddress());
+                }catch (UnknownHostException exception){
+                    logger.error("Failed to get IP address {}", exception.getMessage());
+                }
                 runStarted = true;
             }
         }
@@ -120,12 +129,23 @@ public class ExtentReportListener implements ConcurrentEventListener{
     private synchronized void stepFinished(TestStepFinished event) {
         logger.debug("Step finished event {}",event.getTestStep().getCodeLocation());
         if(step.get()!=null){
-            if (event.getResult().getStatus().toString() == "PASSED") {
-                step.get().log(Status.PASS, "This passed");
-            } else if (event.getResult().getStatus().toString() == "SKIPPED"){
-                step.get().log(Status.SKIP, "This step was skipped ");
-            } else {
-                step.get().log(Status.FAIL, event.getResult().getError());
+            logger.debug("Step finished with {}",event.getResult().getStatus().toString());
+            switch (event.getResult().getStatus()) {
+                case PASSED:
+                    step.get().pass("Pass");
+                    break;
+                case FAILED:
+                    step.get().fail("Fail");
+                    break;
+                case SKIPPED:
+                    step.get().skip("Skipped");
+                    break;
+                case PENDING:
+                    step.get().warning("Pending");
+                    break;
+                default:
+                    step.get().warning("Warning");
+                    break;
             }
         }
     };
