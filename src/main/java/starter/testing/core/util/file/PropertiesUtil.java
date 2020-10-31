@@ -88,7 +88,7 @@ public class PropertiesUtil {
         importToSystemProperties(appiumProperties);
         logger.info("Finished importing appium properties");
         //Print properties file for debugging
-        appiumProperties.entrySet().forEach(appiumProperty -> getProperty((String)appiumProperty.getKey()));
+        printProperties(System.getProperties());
     }
 
     public static Properties mergeProperties(Properties... properties) {

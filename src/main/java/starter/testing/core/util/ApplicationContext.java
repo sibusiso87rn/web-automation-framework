@@ -10,9 +10,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import starter.testing.core.bean.MongoConfig;
 import starter.testing.core.bean.TestBean;
-import starter.testing.core.util.environment.TestConfigurationProperty;
 
 /**
  * Created by Sibusiso Radebe on 2020/02/20.
