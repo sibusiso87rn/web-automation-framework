@@ -130,6 +130,12 @@
             <artifactId>extentreports-cucumber4-adapter</artifactId>
             <version>1.0.10</version>
         </dependency>
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>klov-reporter</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
         <!--Reports-->
 
         <!--Logging -->
@@ -139,6 +145,14 @@
             <version>1.0.13</version>
         </dependency>
         <!--Logging -->
+
+        <!--Mongo-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver</artifactId>
+            <version>3.10.1</version>
+        </dependency>
+        <!--Mongo-->
 
     </dependencies>
     <build>
@@ -158,7 +172,7 @@
                 <version>3.0.0-M4</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/TestNG-Remote.xml</suiteXmlFile>
+                        <suiteXmlFile>TestNG-Remote.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

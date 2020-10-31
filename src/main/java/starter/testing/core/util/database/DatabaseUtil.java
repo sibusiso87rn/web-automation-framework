@@ -1,4 +1,4 @@
-package starter.testing.core.util;
+package starter.testing.core.util.database;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

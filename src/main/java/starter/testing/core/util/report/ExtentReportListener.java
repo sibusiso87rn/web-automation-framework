@@ -28,6 +28,7 @@ public class ExtentReportListener implements ConcurrentEventListener{
     public ExtentReportListener() {
         logger.info("Creating Listener {}",Thread.currentThread());
         SparkReporterService.getInstance();
+        KlovReporterService.getInstance();
     };
 
     @Override
@@ -44,6 +45,7 @@ public class ExtentReportListener implements ConcurrentEventListener{
     //Here we create the reporter
     private synchronized void runStarted(TestRunStarted event) {
         ExtentService.getInstance().attachReporter(SparkReporterService.getInstance().getSparkReport());
+        ExtentService.getInstance().attachReporter(KlovReporterService.getInstance().getKlovReport());
         synchronized (runStarted){
             if(!runStarted){
                 ExtentService.getInstance().setSystemInfo("Application Name", "ExtentReport");
