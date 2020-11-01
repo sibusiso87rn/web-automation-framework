@@ -10,6 +10,6 @@
 
     <context:component-scan base-package="starter.testing" />
     <bean id="springApplicationContext" class="starter.testing.core.bean.ApplicationContext"/>
-    <bean id="testBean"    class="starter.testing.core.bean.TestBean"/>
+    <bean id="testBean"      class="starter.testing.core.bean.TestBean"/>
 
 </beans>

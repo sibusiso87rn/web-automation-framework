@@ -8,25 +8,27 @@ import io.cucumber.plugin.ConcurrentEventListener;
 import io.cucumber.plugin.event.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import starter.testing.core.util.environment.EnvironmentConfig;
+import starter.testing.core.bean.ApplicationContext;
 import starter.testing.core.util.environment.TestConfigurationProperty;
+import starter.testing.core.util.report.config.ReportConfig;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 
+
 public class ExtentReportListener implements ConcurrentEventListener{
 
+    private final ReportConfig reportConfig = (ReportConfig) ApplicationContext.getComponent(ReportConfig.class);
     private static final Logger logger  = LoggerFactory.getLogger(ExtentReportListener.class);
     private static Boolean runStarted                            = Boolean.FALSE;
-    private static ThreadLocal<Map<String, ExtentTest>> feature  = new ThreadLocal<>();
-    private static ThreadLocal<ExtentTest> scenario = new InheritableThreadLocal();
-    private static ThreadLocal<ExtentTest> step     = new InheritableThreadLocal();
+    private static final ThreadLocal<Map<String, ExtentTest>> feature  = new ThreadLocal<>();
+    private static final ThreadLocal<ExtentTest> scenario = new InheritableThreadLocal();
+    private static final ThreadLocal<ExtentTest> step     = new InheritableThreadLocal();
 
     public ExtentReportListener() {
         logger.info("Creating Listener {}",Thread.currentThread());
-        SparkReporterService.getInstance();
-        KlovReporterService.getInstance();
+        initReporters();
     };
 
     @Override
@@ -42,15 +44,13 @@ public class ExtentReportListener implements ConcurrentEventListener{
 
     //Here we create the reporter
     private synchronized void runStarted(TestRunStarted event) {
-        ExtentService.getInstance().attachReporter(SparkReporterService.getInstance().getSparkReport());
-        ExtentService.getInstance().attachReporter(KlovReporterService.getInstance().getKlovReport());
         synchronized (runStarted){
             if(!runStarted){
-                ExtentService.getInstance().setSystemInfo("Application Name", "ExtentReport");
-                ExtentService.getInstance().setSystemInfo("Test Environment", EnvironmentConfig.getEnvironment().toUpperCase());
+                ExtentService.getInstance().setSystemInfo("Application Name", reportConfig.getProjectName());
+                ExtentService.getInstance().setSystemInfo("Test Environment", reportConfig.getEnvironment());
                 ExtentService.getInstance().setSystemInfo("Author", System.getProperty("user.name"));
                 try{
-                    ExtentService.getInstance().setSystemInfo("Machine IP",   InetAddress.getLocalHost().getHostAddress());
+                    ExtentService.getInstance().setSystemInfo("Machine IP", InetAddress.getLocalHost().getHostAddress());
                 }catch (UnknownHostException exception){
                     logger.error("Failed to get IP address {}", exception.getMessage());
                 }
@@ -172,6 +172,19 @@ public class ExtentReportListener implements ConcurrentEventListener{
 
     private boolean isHooksAfterScenario(String hooksStepName){
         return hooksStepName.contains("Hooks.afterScenario(io.cucumber.java.Scenario");
+    }
+
+    private void initReporters(){
+        logger.info("Will be creating klover report {}",reportConfig.isCreateKlovReport());
+        logger.info("Will be creating spark report {}",reportConfig.isCreateSparkReport());
+        if(reportConfig.isCreateKlovReport()){
+            KlovReporterService.getInstance();
+            ExtentService.getInstance().attachReporter(KlovReporterService.getInstance().getKlovReport());
+        }
+        if(reportConfig.isCreateSparkReport()){
+            SparkReporterService.getInstance();
+            ExtentService.getInstance().attachReporter(SparkReporterService.getInstance().getSparkReport());
+        }
     }
 
 }

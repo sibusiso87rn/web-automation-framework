@@ -4,6 +4,10 @@
   },
   "configValues": [
     {
+      "key":   "application.name",
+      "value": "${environment} Application Name"
+    },
+    {
       "key":   "browser.settings.location",
       "value": "target/test-classes/config/browserconf/"
     },
@@ -14,6 +18,10 @@
     {
       "key":   "web.driver.location",
       "value": "target/test-classes/webdriver/${currentos}/"
+    },
+    {
+      "key":   "report.output.dir",
+      "value": "target/test-output/"
     },
     {
       "key":   "base.url",
@@ -34,15 +42,55 @@
       "key":   "extent.log.after.hook",
       "value": "false"
     }
+    ,
+    {
+      "key":   "run.klov.reporter",
+      "value": "true"
+    }
+    ,
+    {
+      "key":   "run.spark.reporter",
+      "value": "true"
+    }
+    ,
+    {
+      "key":   "cucumber.trends.path",
+      "value": "target/testing-trends.json"
+    }
+    ,
+    {
+      "key":   "cucumber.report.path",
+      "value": "target/cucumber-report.json"
+    }
   ],
-  "restServiceList": [{
-    "serverPort": "8080",
-    "baseHost": "https://sampleurl",
-    "basePath": "/basepath/",
-    "uniqueKey": "uniquekey"
-  }
+  "restServiceList": [
+    {
+      "serverPort": "80",
+      "baseHost": "http://localhost",
+      "basePath": ":80",
+      "uniqueKey": "klovserver"
+    },
+    {
+      "serverPort": "8080",
+      "baseHost": "https://sampleurl",
+      "basePath": "/basepath/",
+      "uniqueKey": "uniquekey"
+   }
   ],
-  "dataBaseList": [{
+  "dataBaseList": [
+    {
+      "servername": "localhost",
+      "serverport": "27017",
+      "databasename": "klov",
+      "uniquekey": "klov",
+      "active": true,
+      "user": {
+        "username": "",
+        "password": "",
+        "uniquekey": ""
+      }
+    },
+    {
     "servername": "sampledbname",
     "serverport": "sampleport",
     "databasename": "sampledatabasename",

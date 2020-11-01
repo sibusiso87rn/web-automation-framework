@@ -6,7 +6,6 @@ import io.cucumber.testng.PickleWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.*;
@@ -30,7 +29,6 @@ import starter.testing.tests.TestConstants;
         tags        = "@Dev"
 )
 @ContextConfiguration(locations = {"classpath:spring-bean.xml"})
-@Component
 public class ExecutionEngine extends AbstractTestNGSpringContextTests {
 
     private TestNGCucumberRunner testNGCucumberRunner;
@@ -47,7 +45,7 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         System.setProperty("environment",environment);
 
         //Initialize environment configs
-        EnvironmentConfig.getEnvironmentConfigInstance();
+        EnvironmentConfig.getInstance();
 
         //Initialize driver properties
         logger.info("Creating test configuration using {}",testConfiguration);
@@ -57,7 +55,7 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         System.setProperty("configs.set","true");
 
         ApplicationContext.getTestBean().createDriver();
-        baseUrl = EnvironmentConfig.getEnvironmentConfigInstance().getConfigValue(TestConstants.BASE_URL);
+        baseUrl = EnvironmentConfig.getInstance().getConfigValue(TestConstants.BASE_URL);
 
         //Launch
         ApplicationContext.getTestBean().getWebDriver().get(baseUrl);

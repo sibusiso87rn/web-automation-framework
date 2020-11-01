@@ -65,7 +65,7 @@ public class EnvironmentConfig {
        return config;
     }
 
-    public static EnvironmentConfig getEnvironmentConfigInstance(){
+    public static EnvironmentConfig getInstance(){
         try {
             if(environmentConfig==null){
                 environmentConfig = new EnvironmentConfig();
@@ -102,6 +102,10 @@ public class EnvironmentConfig {
         }
     }
 
+    public static Boolean getBooleanValue(String key){
+       return Boolean.getBoolean(getConfigValue(key));
+    }
+
     public static DataBaseConfig getDatabaseConfigsByKey(String key){
         for(int i = 0; i < getCurrentConfiguration().getDataBaseList().size(); i ++){
             if(getCurrentConfiguration().getDataBaseList().get(i).getKey().equals(key)){
@@ -130,6 +134,10 @@ public class EnvironmentConfig {
 
     public static String getEnvironment(){
         return getCurrentConfiguration().getEnvironment().getEnvironmentName();
+    }
+
+    public static String getApplicationName(){
+        return getConfigValue("application.name");
     }
 
     public static String getDriverLocation(){

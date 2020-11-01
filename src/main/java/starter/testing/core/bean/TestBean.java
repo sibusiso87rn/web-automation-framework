@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import starter.testing.core.driver.WebDriverFactory;
 import starter.testing.core.util.environment.TestConfigurationProperty;
+import starter.testing.core.util.report.config.ReportConfig;
 
 import java.util.Properties;
 
@@ -27,6 +29,11 @@ public class TestBean {
     @Bean
     public TestBean createTestBean(){
         return new TestBean();
+    }
+
+    @Bean
+    public ReportConfig reportConfig() {
+        return new ReportConfig();
     }
 
     public WebDriver getWebDriver(){

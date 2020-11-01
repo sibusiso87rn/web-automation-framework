@@ -29,7 +29,7 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
         }
 
         public String getDriverLocation() {
-            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ ApplicationContext.getTestBean().getThreadLocalProperties().getProperty("browser.name");
+            return EnvironmentConfig.getInstance().getDriverLocation()+ ApplicationContext.getTestBean().getThreadLocalProperties().getProperty("browser.name");
         }
     },
     FIREFOX {
@@ -49,7 +49,7 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
         }
 
         public String getDriverLocation() {
-            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ ApplicationContext.getTestBean().getThreadLocalProperties().getProperty("browser.name");
+            return EnvironmentConfig.getInstance().getDriverLocation()+ ApplicationContext.getTestBean().getThreadLocalProperties().getProperty("browser.name");
         }
     },
     IE {
@@ -68,7 +68,7 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
         }
 
         public String getDriverLocation() {
-            return EnvironmentConfig.getEnvironmentConfigInstance().getDriverLocation()+ ApplicationContext.getTestBean().getThreadLocalProperties().getProperty("browser.name");
+            return EnvironmentConfig.getInstance().getDriverLocation()+ ApplicationContext.getTestBean().getThreadLocalProperties().getProperty("browser.name");
         }
     }
 }

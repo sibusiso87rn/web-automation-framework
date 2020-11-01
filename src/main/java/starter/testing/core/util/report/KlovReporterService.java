@@ -3,23 +3,25 @@ package starter.testing.core.util.report;
 import com.aventstack.extentreports.reporter.ExtentKlovReporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import starter.testing.core.bean.ApplicationContext;
+import starter.testing.core.util.report.config.ReportConfig;
 
-import java.util.Random;
-
-import static starter.testing.core.util.file.PropertiesUtil.importAppiumSetting;
+import java.util.Date;
 
 public class KlovReporterService {
+
+    private ReportConfig reportConfig = (ReportConfig) ApplicationContext.getComponent(ReportConfig.class);
 
     private static KlovReporterService klovReporterService = null;
     private static ExtentKlovReporter klov  = null;
     private static final Logger logger  = LoggerFactory.getLogger(SparkReporterService.class);
 
     private KlovReporterService(){
-        klov = new ExtentKlovReporter("target/test-output/");
-        klov.initMongoDbConnection("localhost", 27017);
-        klov.setProjectName("Project-2"+ Math.rint(100));
-        klov.setReportName("2.0");
-        klov.initKlovServerConnection("http://localhost:80");
+        klov = new ExtentKlovReporter(reportConfig.getReportOutPutDir());
+        klov.initMongoDbConnection(reportConfig.getKlovDatabaseName(), reportConfig.getKlovDatabasePort());
+        klov.setProjectName(reportConfig.getProjectName());
+        klov.setReportName(getRunId());
+        klov.initKlovServerConnection(reportConfig.getKlovServerName());
     }
 
     public static KlovReporterService getInstance(){
@@ -32,6 +34,10 @@ public class KlovReporterService {
 
     public ExtentKlovReporter getKlovReport(){
         return klov;
+    }
+
+    public static String getRunId(){
+        return new Date().toString()+"-Run";
     }
 
 }
