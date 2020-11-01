@@ -48,8 +48,8 @@ public class ReportConfig {
         return this.klovMongoDatabase;
     }
 
-    public String getKlovDatabaseName(){
-        return this.getKlovMongoDatabase().getDatabaseName();
+    public String getKlovDatabaseHostame(){
+        return this.getKlovMongoDatabase().getDatabaseServer();
     }
 
     public int getKlovDatabasePort(){

@@ -103,7 +103,7 @@ public class EnvironmentConfig {
     }
 
     public static Boolean getBooleanValue(String key){
-       return Boolean.getBoolean(getConfigValue(key));
+       return Boolean.parseBoolean(getConfigValue(key));
     }
 
     public static DataBaseConfig getDatabaseConfigsByKey(String key){

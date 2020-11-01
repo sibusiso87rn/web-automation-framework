@@ -27,8 +27,6 @@ public class CucumberReport {
     private final String trendsPathName;
     private final int trendsLimit;
 
-
-
     public CucumberReport(){
         this.trendsLimit    = 100;
         this.trendsPathName = reportConfig.getTrendsPathName();

@@ -18,7 +18,9 @@ public class KlovReporterService {
 
     private KlovReporterService(){
         klov = new ExtentKlovReporter(reportConfig.getReportOutPutDir());
-        klov.initMongoDbConnection(reportConfig.getKlovDatabaseName(), reportConfig.getKlovDatabasePort());
+
+        logger.info("Connecting to mongo database ");
+        klov.initMongoDbConnection(reportConfig.getKlovDatabaseHostame(), reportConfig.getKlovDatabasePort());
         klov.setProjectName(reportConfig.getProjectName());
         klov.setReportName(getRunId());
         klov.initKlovServerConnection(reportConfig.getKlovServerName());
