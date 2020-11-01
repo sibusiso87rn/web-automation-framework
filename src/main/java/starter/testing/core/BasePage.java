@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import starter.testing.core.util.ApplicationContext;
+import starter.testing.core.bean.ApplicationContext;
 
 public abstract class BasePage {
 

@@ -23,11 +23,9 @@ public class TestConfigurationProperty {
 
     public static void createTestConfigProperties(String testConfiguration){
         //Read properties
-        String gridPropertiesLocation = EnvironmentConfig.getConfigValue(CoreConstants.BROWSER_CONF_KEY)+EnvironmentConfig.getConfigValue(CoreConstants.GRID_SETTINGS_CONF_KEY);
         String testPropertiesLocation = EnvironmentConfig.getConfigValue(CoreConstants.TEST_SETTINGS_CONF_KEY)+testConfiguration;
-        logger.info("Adding grid properties from location {} ",gridPropertiesLocation);
         logger.info("Adding testing configuration from location {} ",testPropertiesLocation);
-        driverProperties.set(PropertiesUtil.mergeProperties(PropertiesUtil.getProperties(gridPropertiesLocation),PropertiesUtil.getProperties(testPropertiesLocation)));
+        driverProperties.set(PropertiesUtil.mergeProperties(System.getProperties(),PropertiesUtil.getProperties(testPropertiesLocation)));
         PropertiesUtil.printProperties(driverProperties.get());
     }
 

@@ -1,9 +1,7 @@
 package starter.testing.core.util.report;
 
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.gherkin.model.Given;
-import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.model.Attribute;
 import com.aventstack.extentreports.service.ExtentService;
 import io.cucumber.plugin.ConcurrentEventListener;

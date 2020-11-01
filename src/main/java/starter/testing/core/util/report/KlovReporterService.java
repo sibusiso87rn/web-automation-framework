@@ -4,6 +4,8 @@ import com.aventstack.extentreports.reporter.ExtentKlovReporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Random;
+
 import static starter.testing.core.util.file.PropertiesUtil.importAppiumSetting;
 
 public class KlovReporterService {
@@ -13,14 +15,9 @@ public class KlovReporterService {
     private static final Logger logger  = LoggerFactory.getLogger(SparkReporterService.class);
 
     private KlovReporterService(){
-        try {
-            importAppiumSetting("target/test-classes/com.aventstack.adapter/klov.properties");
-        }catch (Exception e){
-            logger.error(e.getMessage());
-        }
         klov = new ExtentKlovReporter("target/test-output/");
         klov.initMongoDbConnection("localhost", 27017);
-        klov.setProjectName("Project");
+        klov.setProjectName("Project-2"+ Math.rint(100));
         klov.setReportName("2.0");
         klov.initKlovServerConnection("http://localhost:80");
     }

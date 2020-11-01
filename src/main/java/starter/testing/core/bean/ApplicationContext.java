@@ -1,4 +1,4 @@
-package starter.testing.core.util;
+package starter.testing.core.bean;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import starter.testing.core.bean.TestBean;
 
 /**
  * Created by Sibusiso Radebe on 2020/02/20.

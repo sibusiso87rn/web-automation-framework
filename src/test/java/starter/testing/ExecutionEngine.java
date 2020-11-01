@@ -6,10 +6,11 @@ import io.cucumber.testng.PickleWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.*;
-import starter.testing.core.util.ApplicationContext;
+import starter.testing.core.bean.ApplicationContext;
 import starter.testing.core.util.environment.TestConfigurationProperty;
 import starter.testing.core.util.report.CucumberReport;
 import starter.testing.core.util.environment.EnvironmentConfig;
@@ -29,6 +30,7 @@ import starter.testing.tests.TestConstants;
         tags        = "@Dev"
 )
 @ContextConfiguration(locations = {"classpath:spring-bean.xml"})
+@Component
 public class ExecutionEngine extends AbstractTestNGSpringContextTests {
 
     private TestNGCucumberRunner testNGCucumberRunner;

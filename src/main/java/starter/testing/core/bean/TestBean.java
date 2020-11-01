@@ -42,7 +42,6 @@ public class TestBean {
         createThreadLocalDriver(TestConfigurationProperty.getThreadLocalProperties());
     }
 
-
     //Gets the test configuration for the session
     public Properties getThreadLocalProperties(){
         logger.info("Getting the test configuration application context");

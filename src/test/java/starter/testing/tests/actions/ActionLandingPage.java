@@ -1,6 +1,7 @@
 package starter.testing.tests.actions;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import starter.testing.tests.pages.Page_Landing;
 @Lazy
 @Scope("prototype")
 @Component
-public class Action_LandingPage {
+public class ActionLandingPage {
 
     @Autowired
     Page_Landing landingPage;

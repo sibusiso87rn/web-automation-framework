@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import starter.testing.core.util.ApplicationContext;
+import starter.testing.core.bean.ApplicationContext;
 import starter.testing.core.util.string.UuidUtil;
 
 import java.io.IOException;

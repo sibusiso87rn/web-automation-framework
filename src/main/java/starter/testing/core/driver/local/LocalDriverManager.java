@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import starter.testing.core.interfaces.ILocalWebDriverSetup;
-import starter.testing.core.util.ApplicationContext;
+import starter.testing.core.bean.ApplicationContext;
 import starter.testing.core.util.environment.EnvironmentConfig;
 
 public enum LocalDriverManager implements ILocalWebDriverSetup {

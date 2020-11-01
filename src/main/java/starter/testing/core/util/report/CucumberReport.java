@@ -7,7 +7,7 @@ import net.masterthought.cucumber.Reportable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import starter.testing.core.util.ApplicationContext;
+import starter.testing.core.bean.ApplicationContext;
 import starter.testing.core.util.environment.EnvironmentConfig;
 import starter.testing.core.util.file.FilesUtil;
 
