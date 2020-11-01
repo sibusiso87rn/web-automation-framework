@@ -10,15 +10,13 @@ import java.util.Date;
 
 public class KlovReporterService {
 
-    private ReportConfig reportConfig = (ReportConfig) ApplicationContext.getComponent(ReportConfig.class);
-
     private static KlovReporterService klovReporterService = null;
     private static ExtentKlovReporter klov  = null;
     private static final Logger logger  = LoggerFactory.getLogger(SparkReporterService.class);
 
     private KlovReporterService(){
+        ReportConfig reportConfig = (ReportConfig) ApplicationContext.getComponent(ReportConfig.class);
         klov = new ExtentKlovReporter(reportConfig.getReportOutPutDir());
-
         logger.info("Connecting to mongo database ");
         klov.initMongoDbConnection(reportConfig.getKlovDatabaseHostame(), reportConfig.getKlovDatabasePort());
         klov.setProjectName(reportConfig.getProjectName());

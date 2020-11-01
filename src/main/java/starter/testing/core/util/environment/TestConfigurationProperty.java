@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import starter.testing.core.CoreConstants;
-import starter.testing.core.driver.WebDriverFactory;
 import starter.testing.core.util.file.PropertiesUtil;
 
 import java.util.Properties;
@@ -14,7 +13,7 @@ import java.util.Properties;
 @Lazy
 public class TestConfigurationProperty {
 
-    private static ThreadLocal<Properties> driverProperties = new ThreadLocal<>();
+    private static final ThreadLocal<Properties> driverProperties = new ThreadLocal<>();
     private static final Logger logger = LogManager.getLogger(TestConfigurationProperty.class);
 
     public static Properties getThreadLocalProperties(){

@@ -8,7 +8,7 @@ import starter.testing.core.bean.ApplicationContext;
 
 public abstract class BasePage {
 
-    protected WebDriver driver;
+    protected final WebDriver driver;
     protected static final Logger logger = LogManager.getLogger(BasePage.class);
 
     public BasePage(){

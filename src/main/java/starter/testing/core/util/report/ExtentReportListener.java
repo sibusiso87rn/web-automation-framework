@@ -21,7 +21,7 @@ public class ExtentReportListener implements ConcurrentEventListener{
 
     private final ReportConfig reportConfig = (ReportConfig) ApplicationContext.getComponent(ReportConfig.class);
     private static final Logger logger  = LoggerFactory.getLogger(ExtentReportListener.class);
-    private static Boolean runStarted                            = Boolean.FALSE;
+    private static Boolean runStarted   = Boolean.FALSE;
     private static final ThreadLocal<Map<String, ExtentTest>> feature  = new ThreadLocal<>();
     private static final ThreadLocal<ExtentTest> scenario = new InheritableThreadLocal();
     private static final ThreadLocal<ExtentTest> step     = new InheritableThreadLocal();

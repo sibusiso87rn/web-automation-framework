@@ -20,8 +20,7 @@ public class FilesUtil {
 
     //Gets a file in resources path
     public static File getFile(String filePath) throws Exception{
-        String filePathNew = filePath;
-        File file          = ResourceUtils.getFile(filePathNew);
+        File file          = ResourceUtils.getFile(filePath);
         if(!file.exists()){
             logger.error(filePath + " Does not exist " );
             throw new Exception(filePath + " Does not exist ");
@@ -102,13 +101,11 @@ public class FilesUtil {
 
         ArrayList<String> list = new ArrayList<String>();
 
-        if(file!=null){
-            String[] filesInDir = file.list();
+        String[] filesInDir = file.list();
 
-            for(String fileName: filesInDir){
-                if(fileName.contains(fileTypes)){
-                    list.add(fileName);
-                }
+        for(String fileName: filesInDir){
+            if(fileName.contains(fileTypes)){
+                list.add(fileName);
             }
         }
 

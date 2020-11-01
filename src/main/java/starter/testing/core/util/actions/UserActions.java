@@ -228,7 +228,7 @@ public class UserActions {
 
     //Adds text to each of the elements
     public static void addTextToElements(List<WebElement> elementList,String content){
-        StringBuffer elementText = new StringBuffer();
+        StringBuilder elementText = new StringBuilder();
         logger.info("Adding string text to elements, list size is " + elementList.size() + ", the string contents are " + content);
         for(int i = 0; i < elementList.size(); i++){
             String data = Character.toString(content.charAt(i));

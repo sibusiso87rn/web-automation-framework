@@ -14,7 +14,7 @@ import starter.testing.tests.actions.ActionLandingPage;
 @Scope("prototype")
 public class StepDef_LandingPage {
 
-    ActionLandingPage actionLandingPage = (ActionLandingPage) ApplicationContext.getComponent(ActionLandingPage.class);
+    final ActionLandingPage actionLandingPage = (ActionLandingPage) ApplicationContext.getComponent(ActionLandingPage.class);
 
     //Givens
     @Given("The user is on the google search page")

@@ -9,15 +9,15 @@ import starter.testing.core.util.report.config.ReportConfig;
 
 public class SparkReporterService {
 
-    private ReportConfig reportConfig = (ReportConfig) ApplicationContext.getComponent(ReportConfig.class);
     private static SparkReporterService sparkReporterService = null;
     private static ExtentSparkReporter spark  = null;
     private static final Logger logger  = LoggerFactory.getLogger(SparkReporterService.class);
 
     private SparkReporterService(){
-       spark = new ExtentSparkReporter(reportConfig.getReportOutPutDir());
-       spark.config().setTheme(Theme.STANDARD);
-       spark.config().setDocumentTitle(reportConfig.getProjectName());
+        ReportConfig reportConfig = (ReportConfig) ApplicationContext.getComponent(ReportConfig.class);
+        spark = new ExtentSparkReporter(reportConfig.getReportOutPutDir());
+        spark.config().setTheme(Theme.STANDARD);
+        spark.config().setDocumentTitle(reportConfig.getProjectName());
     }
 
     public static SparkReporterService getInstance(){

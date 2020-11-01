@@ -11,10 +11,13 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * Created by Sibusiso Radebe on 2020/02/20.
  */
 
+@SuppressWarnings({"rawtypes", "ConstantConditions"})
 @Component
 public class ApplicationContext implements ApplicationContextAware {
 
@@ -42,7 +45,7 @@ public class ApplicationContext implements ApplicationContextAware {
     //Checks if the bean exists in the context, returns true if it does
     private static boolean beanExists(String beanName){
             try {
-                return getBean(beanName)!=null;
+                return Objects.nonNull(getBean(beanName));
             }catch (NoSuchBeanDefinitionException e){
                 logger.error(e);
             }
