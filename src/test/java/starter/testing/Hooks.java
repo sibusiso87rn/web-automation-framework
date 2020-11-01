@@ -55,7 +55,7 @@ public class Hooks {
         logger.info("Taking screenshot...");
             try {
                 byte[] screenShot = ((TakesScreenshot) ApplicationContext.getWebDriver()).getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenShot,"image/png", UuidUtil.getUuidNospecialChar());
+                scenario.attach(screenShot,"image/png", UuidUtil.getUuidNospecialChar()+".png");
             } catch (Exception e) {
                 logger.error("Failed to take screenshot , {}", e.getMessage());
             }
