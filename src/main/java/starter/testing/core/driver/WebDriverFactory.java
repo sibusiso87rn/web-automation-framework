@@ -33,6 +33,13 @@ public class WebDriverFactory {
         return webDriverThreadLocal.get();
     }
 
+    public void quitThreadLocalWebDriver(){
+        logger.debug("Quiting web driver");
+        getThreadLocalWebDriver().quit();
+        logger.debug("Removing driver instance");
+        webDriverThreadLocal.remove();
+    }
+
     protected static void setThreadLocalWebDriver(WebDriver driver) {
         webDriverThreadLocal.set(driver);
     }
@@ -59,5 +66,6 @@ public class WebDriverFactory {
         }
         webDriverThreadLocal.set(driver);
     }
+
 }
 

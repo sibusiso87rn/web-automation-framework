@@ -12,7 +12,7 @@ public abstract class BasePage {
     protected static final Logger logger = LogManager.getLogger(BasePage.class);
 
     public BasePage(){
-        driver = ApplicationContext.getWebDriver();
+        driver = ApplicationContext.getTestBean().getWebDriver();
         logger.info("Creating page object ["+this.getClass().getSimpleName()+"]");
         PageFactory.initElements(driver,this);
     }

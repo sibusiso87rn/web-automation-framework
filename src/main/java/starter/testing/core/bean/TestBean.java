@@ -38,6 +38,11 @@ public class TestBean {
        return WebDriverFactory.getInstance().getThreadLocalWebDriver();
     }
 
+    public void quitDriver(){
+        WebDriverFactory.getInstance().quitThreadLocalWebDriver();
+        TestConfigurationProperty.cleanup();
+    }
+
     public void createThreadLocalDriver(Properties appiumProperties) throws Exception {
         WebDriverFactory.getInstance().createThreadLocalDriver(appiumProperties);
     }

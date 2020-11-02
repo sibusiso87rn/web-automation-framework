@@ -81,8 +81,9 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
     @AfterClass(alwaysRun = true)
     public void tearDownClass() {
         testNGCucumberRunner.finish();
+
         //Quit appium driver
-        ApplicationContext.getTestBean().getWebDriver().quit();
+        ApplicationContext.getTestBean().quitDriver();
 
         //Create and finalize the report - This is done once, only after the tests have been completed.
         new CucumberReport().createReport();

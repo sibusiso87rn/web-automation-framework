@@ -28,4 +28,9 @@ public class TestConfigurationProperty {
         PropertiesUtil.printProperties(driverProperties.get());
     }
 
+    public static void cleanup(){
+        logger.debug("Cleaning up....");
+        driverProperties.remove();
+    }
+
 }

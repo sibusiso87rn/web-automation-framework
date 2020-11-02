@@ -23,8 +23,7 @@ public class ApplicationContext implements ApplicationContextAware {
 
     private static org.springframework.context.ApplicationContext CONTEXT;
 
-    private static final Logger logger                = LogManager.getLogger(ApplicationContext.class);
-    private static final String TEST_DRIVER_BEAN_NAME = "testBean";
+    private static final Logger logger = LogManager.getLogger(ApplicationContext.class);
 
     public void setApplicationContext(org.springframework.context.ApplicationContext context) throws BeansException {
         CONTEXT = context;
@@ -70,12 +69,6 @@ public class ApplicationContext implements ApplicationContextAware {
     //Gets the test driver singleton from the context
     public static TestBean getTestBean(){
         return  (TestBean) ApplicationContext.getComponent(TestBean.class);
-    }
-
-    //Gets the appium driver from Spring Context
-    public static WebDriver getWebDriver(){
-        logger.info("Getting the appium driver from application context");
-        return  ApplicationContext.getTestBean().getWebDriver();
     }
 
     //Gets the page from the Page Object from Spring Context
