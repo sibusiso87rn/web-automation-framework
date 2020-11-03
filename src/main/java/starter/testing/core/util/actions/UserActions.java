@@ -36,33 +36,33 @@ public class UserActions {
     public static int OBJECT_WAIT_TIME = 2/*Integer.parseInt(System.getProperty("object.wait.time","30"))*/;
 
     public static void click(WebElement element) {
-        click(element, ApplicationContext.getTestBean().getWebDriver());
+        click(element, getDriver());
     }
 
     public static void clear(WebElement element) {
-        clear(element, ApplicationContext.getTestBean().getWebDriver());
+        clear(element, getDriver());
     }
 
     public static void isElementSelected(WebElement element) {
         logger.info("Checking if the element is selected");
-        checkSelected(element, true, ApplicationContext.getTestBean().getWebDriver());
+        checkSelected(element, true, getDriver());
     }
 
     public static void isElementUnSelected(WebElement element) {
         logger.info("Checking if the element is un selected");
-        checkSelected(element, false, ApplicationContext.getTestBean().getWebDriver());
+        checkSelected(element, false, getDriver());
     }
 
     public static void isElementEnabled(WebElement element){
-        isElementEnabled(element, ApplicationContext.getTestBean().getWebDriver());
+        isElementEnabled(element, getDriver());
     }
 
     public static void isElementDisabled(WebElement element){
-        isElementDisabled(element, ApplicationContext.getTestBean().getWebDriver());
+        isElementDisabled(element, getDriver());
     }
 
     public static void isElementPresent(WebElement element) {
-        isElementPresent(element, ApplicationContext.getTestBean().getWebDriver());
+        isElementPresent(element, getDriver());
     }
 
     public static void isElementPresent(WebElement element, WebDriver driver) {
@@ -103,16 +103,16 @@ public class UserActions {
     }
 
     public static void waitForElementToBeVisible(WebElement element) {
-        waitForElementToBeVisible(element, ApplicationContext.getTestBean().getWebDriver());
+        waitForElementToBeVisible(element, getDriver());
     }
 
     public static void waitForElementToInVisible(WebElement element){
-        waitForElementToInVisible(element, ApplicationContext.getTestBean().getWebDriver());
+        waitForElementToInVisible(element, getDriver());
     }
 
     public static void input(WebElement element, String data) {
         logger.info("Ready to input data : " + data);
-        input(element, ApplicationContext.getTestBean().getWebDriver(),data);
+        input(element, getDriver(),data);
         logger.info("Input data complete : success");
 
     }
@@ -284,43 +284,6 @@ public class UserActions {
         assertThat("Expected result does match regular expression format : " + expectedPattern.toString(),
                 matcher.matches(),
                 is(true));
-    }
-
-    public static void debugElementProperties(WebElement element){
-
-        String[] elementProps = {"UID",
-                "accessibilityContainer",
-                "accessible",
-                "enabled",
-                "frame",
-                "label",
-                "name",
-                "rect",
-                "type",
-                "value",
-                "visible",
-                "wdAccessibilityContainer",
-                "wdAccessible",
-                "wdEnabled",
-                "wdFrame",
-                "wdLabel",
-                "wdName",
-                "wdRect",
-                "wdType",
-                "wdUID",
-                "wdValue",
-                "wdVisible"};
-
-        for (String property: elementProps){
-            try {
-                logger.debug("Element Prop [" + property + "] value ["+element.getAttribute(property)+"]");
-            }catch (Exception e){
-
-            }
-        }
-        logger.debug("Element Prop [text] \tvalue ["+element.getText()+"]");
-        logger.debug("Element Prop [css] \tvalue ["+element.getCssValue("display")+"]");
-
     }
 
 }

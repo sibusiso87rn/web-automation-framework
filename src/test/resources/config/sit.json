@@ -3,25 +3,104 @@
     "id": "sit"
   },
   "configValues": [
-  ],
-  "restServiceList": [{
-    "serverPort": "8080",
-    "baseHost": "https://sampleurl",
-    "basePath": "/basepath/",
-    "uniqueKey": "uniquekey"
-  }
-  ],
-  "dataBaseList": [{
-    "servername": "sampledbname",
-    "serverport": "sampleport",
-    "databasename": "sampledatabasename",
-    "uniquekey": "uniquekey",
-    "active": true,
-    "user": {
-      "username": "sampleusername",
-      "password": "samplepassword",
-      "uniquekey": ""
+    {
+      "key":   "application.name",
+      "value": "${environment} Application Name"
+    },
+    {
+      "key":   "browser.settings.location",
+      "value": "target/test-classes/config/browser/"
+    },
+    {
+      "key":   "test.configuration.location",
+      "value": "target/test-classes/config/test/"
+    },
+    {
+      "key":   "web.driver.location",
+      "value": "target/test-classes/webdriver/${currentos}/"
+    },
+    {
+      "key":   "report.output.dir",
+      "value": "target/test-output/"
+    },
+    {
+      "key":   "base.url",
+      "value": "https://google.com/"
     }
-  }
+  ,
+    {
+      "key":   "grid.settings.name",
+      "value": "grid.properties"
+    }
+  ,
+    {
+      "key":   "extent.log.before.hook",
+      "value": "false"
+    }
+  ,
+    {
+      "key":   "extent.log.after.hook",
+      "value": "false"
+    }
+  ,
+    {
+      "key":   "run.klov.reporter",
+      "value": "true"
+    }
+  ,
+    {
+      "key":   "run.spark.reporter",
+      "value": "true"
+    }
+  ,
+    {
+      "key":   "cucumber.trends.path",
+      "value": "target/testing-trends.json"
+    }
+  ,
+    {
+      "key":   "cucumber.report.path",
+      "value": "target/cucumber-report.json"
+    }
+  ],
+  "restServiceList": [
+    {
+      "serverPort": "80",
+      "baseHost": "http://localhost",
+      "basePath": ":80",
+      "uniqueKey": "klovserver"
+    },
+    {
+      "serverPort": "8080",
+      "baseHost": "https://sampleurl",
+      "basePath": "/basepath/",
+      "uniqueKey": "uniquekey"
+    }
+  ],
+  "dataBaseList": [
+    {
+      "servername": "localhost",
+      "serverport": "27017",
+      "databasename": "klov",
+      "uniquekey": "klov",
+      "active": true,
+      "user": {
+        "username": "",
+        "password": "",
+        "uniquekey": ""
+      }
+    },
+    {
+      "servername": "sampledbname",
+      "serverport": "sampleport",
+      "databasename": "sampledatabasename",
+      "uniquekey": "uniquekey",
+      "active": true,
+      "user": {
+        "username": "sampleusername",
+        "password": "samplepassword",
+        "uniquekey": ""
+      }
+    }
   ]
 }

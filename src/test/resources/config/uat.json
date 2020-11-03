@@ -9,7 +9,7 @@
     },
     {
       "key":   "browser.settings.location",
-      "value": "target/test-classes/config/browserconf/"
+      "value": "target/test-classes/config/browser/"
     },
     {
       "key":   "test.configuration.location",
