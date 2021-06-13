@@ -1,0 +1,9 @@
+version: '3.1'
+services:
+  klov:
+    image: anshooarora/klov:1.0.1
+    container_name: klov
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/klov
+    ports:
+      - 80:80
