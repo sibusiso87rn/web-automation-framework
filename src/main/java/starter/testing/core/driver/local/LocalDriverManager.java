@@ -1,5 +1,6 @@
 package starter.testing.core.driver.local;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -21,7 +22,7 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
         }
 
         public WebDriver getLocalWebDriverObject(DesiredCapabilities capabilities,String binaryLocation){
-            System.setProperty("webdriver.chrome.driver", binaryLocation);
+            WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--start-maximized");
             options.merge(capabilities);
@@ -41,7 +42,7 @@ public enum LocalDriverManager implements ILocalWebDriverSetup {
         }
 
         public WebDriver getLocalWebDriverObject(DesiredCapabilities capabilities,String binaryLocation) {
-            System.setProperty("webdriver.gecko.driver", binaryLocation);
+            WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments("--start-maximized");
             options.merge(capabilities);

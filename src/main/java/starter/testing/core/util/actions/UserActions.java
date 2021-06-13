@@ -33,7 +33,7 @@ public class UserActions {
     private static final Logger logger = LogManager.getLogger(UserActions.class);
 
     //Reads the wait time from the system props, defaults to 30 seconds if not specified
-    public static int OBJECT_WAIT_TIME = 2/*Integer.parseInt(System.getProperty("object.wait.time","30"))*/;
+    public static int OBJECT_WAIT_TIME = 10/*Integer.parseInt(System.getProperty("object.wait.time","30"))*/;
 
     public static void click(WebElement element) {
         click(element, getDriver());

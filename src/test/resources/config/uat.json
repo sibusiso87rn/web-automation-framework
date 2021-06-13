@@ -45,12 +45,12 @@
     ,
     {
       "key":   "run.klov.reporter",
-      "value": "true"
+      "value": "false"
     }
     ,
     {
       "key":   "run.spark.reporter",
-      "value": "true"
+      "value": "false"
     }
     ,
     {

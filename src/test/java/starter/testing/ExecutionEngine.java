@@ -61,6 +61,11 @@ public class ExecutionEngine extends AbstractTestNGSpringContextTests {
         ApplicationContext.getTestBean().getWebDriver().get(baseUrl);
         logger.debug("Driver connecting to [{}] for scenario",ApplicationContext.getTestBean().getWebDriver().getCurrentUrl());
         logger.info("Finished setting the TestNG properties.");
+
+        //Maximise Window
+        logger.info("Maximising browser window");
+        ApplicationContext.getTestBean().getWebDriver().manage().window().maximize();
+
     }
 
     @BeforeClass(alwaysRun = true)
